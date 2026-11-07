@@ -6,6 +6,7 @@ SDK=$HOME/.cache/android/sdk
 BT=$SDK/build-tools/34.0.0
 AJ=$SDK/platforms/android-34/android.jar
 cd "$(dirname "$0")"
+ROOT="$(cd ../.. && pwd)"
 
 rm -rf build gen obj
 mkdir -p build gen obj
@@ -49,8 +50,8 @@ fi
 
 echo "== sign =="
 $BT/apksigner sign --ks debug.keystore --ks-pass pass:android --key-pass pass:android \
-  --out /home/user/1c-profi.apk build/aligned.apk
+  --out "$ROOT/1c-profi.apk" build/aligned.apk
 
 echo "== verify =="
-$BT/apksigner verify --print-certs /home/user/1c-profi.apk | head -5
-ls -la /home/user/1c-profi.apk
+$BT/apksigner verify --print-certs "$ROOT/1c-profi.apk" | head -5
+ls -la "$ROOT/1c-profi.apk"

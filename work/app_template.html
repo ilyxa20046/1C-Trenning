@@ -3,192 +3,322 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#8b1a1a">
+<meta name="theme-color" content="#080f1e">
 <title>1С:Профессионал — подготовка к аттестации</title>
 <style>
 :root{
-  --bg:#f4f1ec; --card:#ffffff; --text:#1e1b18; --muted:#7a7268; --line:#e5ded4;
-  --brand:#8b1a1a; --brand2:#c0392b; --ok:#1f8a4c; --bad:#c0392b; --warn:#b7791f;
-  --shadow:0 2px 10px rgba(30,27,24,.07); --radius:16px;
+  color-scheme:dark;
+  --bg:#080f1e; --surface:#0b1424; --card:#111c31; --card2:#15213a; --text:#f4f7ff; --muted:#91a2bd;
+  --line:#22314b; --brand:#ffc400; --brand2:#ffd64a; --ok:#36d58b; --bad:#ff6479; --warn:#f4b942;
+  --shadow:0 18px 44px rgba(0,0,0,.18); --radius:20px; --sidebar-width:248px;
 }
-[data-theme="dark"]{
-  --bg:#141210; --card:#1e1b18; --text:#f2ede6; --muted:#a79c8e; --line:#332d27;
-  --brand:#e07a5f; --brand2:#c0392b; --ok:#4ec27f; --bad:#ef7061; --warn:#e0b04a;
-  --shadow:0 2px 12px rgba(0,0,0,.4);
+[data-theme="light"]{
+  color-scheme:light;
+  --bg:#f3f6fb; --surface:#ffffff; --card:#ffffff; --card2:#f7f9fc; --text:#152039; --muted:#71809b;
+  --line:#e0e7f1; --brand:#d6a500; --brand2:#f0bd16; --ok:#18885b; --bad:#d94f64; --warn:#bd7d0c;
+  --shadow:0 14px 32px rgba(28,44,72,.08);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
-  font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
-body{padding-bottom:env(safe-area-inset-bottom)}
-button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
-input,textarea,select{font:inherit;color:inherit}
-.wrap{max-width:900px;margin:0 auto;padding:0 14px}
-header.top{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px;min-width:0}
-.top .wrap > .grow{min-width:0}
-.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand2));
-  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;flex:0 0 auto}
-.h-title{font-weight:800;font-size:17px;line-height:1.15;overflow-wrap:anywhere}
-@media (max-width:380px){
-  .top .wrap{gap:8px;padding-left:12px;padding-right:12px}
-  .logo{width:34px;height:34px;font-size:13px;border-radius:10px}
-  .h-title{font-size:15px}
-  .h-sub{font-size:11px}
-  .icon-btn{width:36px;height:36px;font-size:16px}
-  .opt{padding:12px}
-}
-.h-sub{font-size:12px;color:var(--muted)}
-.icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;
-  justify-content:center;font-size:18px;background:var(--card)}
-main{padding:16px 0 40px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-.pad{padding:16px}
-h2{font-size:19px;margin:22px 0 10px}
-h3{font-size:16px;margin:0 0 6px}
+html,body{margin:0;padding:0;min-height:100%;background:var(--bg);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+body{padding-bottom:env(safe-area-inset-bottom);overflow-x:hidden}
+button,input,textarea,select{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.app-shell{min-height:100vh}
+.sidebar{position:fixed;z-index:30;inset:0 auto 0 0;width:var(--sidebar-width);display:flex;flex-direction:column;padding:18px 14px 16px;background:#060c17;border-right:1px solid #172238;color:#f4f7ff}
+.side-brand{display:flex;align-items:center;gap:12px;padding:0 5px 20px}
+.logo{width:46px;height:46px;border-radius:14px;background:var(--brand);display:flex;align-items:center;justify-content:center;color:#101727;font-weight:900;font-size:17px;flex:0 0 auto;box-shadow:0 8px 22px rgba(255,196,0,.16)}
+.side-brand-title{font-size:17px;line-height:1.15;font-weight:800;letter-spacing:-.02em}
+.side-brand-sub{font-size:12px;color:#9aabc5;margin-top:3px}
+.side-nav{display:grid;gap:5px}
+.side-link{position:relative;display:flex;align-items:center;gap:12px;width:100%;min-height:46px;padding:10px 12px;border-radius:13px;color:#c6d1e2;text-align:left;font-size:14px;font-weight:550;transition:background .16s,color .16s,transform .16s}
+.side-link:hover{background:#0e192b;color:#fff;transform:translateX(1px)}
+.side-link.active{background:#111d32;color:#fff;box-shadow:inset 3px 0 0 var(--brand)}
+.side-icon{width:23px;flex:0 0 23px;text-align:center;color:var(--brand);font-size:19px;line-height:1}
+.side-count{margin-left:auto;min-width:22px;height:22px;padding:0 6px;display:grid;place-items:center;border-radius:999px;background:var(--brand);color:#151b26;font-size:11px;font-weight:800}
+.sidebar-spacer{flex:1}
+.side-bottom{border-top:1px solid #172238;padding-top:12px}
+.side-footnote{padding:10px 12px 0;font-size:11px;color:#71809a}
+.app-main{min-height:100vh;margin-left:var(--sidebar-width);min-width:0}
+.wrap{width:100%;max-width:1280px;margin:0 auto;padding:0 34px}
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(18px);border-bottom:1px solid color-mix(in srgb,var(--line) 75%,transparent)}
+.top-inner{display:flex;align-items:center;gap:14px;min-height:72px;padding-top:10px;padding-bottom:10px}
+.mobile-menu,.mobile-brand{display:none}
+.global-search{height:44px;max-width:560px;flex:1;display:flex;align-items:center;gap:10px;padding:0 13px;border:1px solid var(--line);border-radius:13px;background:var(--card);color:var(--muted)}
+.global-search>span{font-size:21px;color:var(--brand);line-height:1}
+.global-search input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font-size:14px}
+.global-search input::placeholder{color:var(--muted)}
+.global-search kbd{border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--muted);font-size:11px;font-family:inherit}
+.top-actions{display:flex;gap:8px;margin-left:auto}
+.icon-btn{width:42px;height:42px;border-radius:13px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--card);color:var(--text);transition:.15s}
+.icon-btn:hover{border-color:var(--brand);color:var(--brand)}
+main{padding:30px 0 56px}
+.page-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:4px 0 24px}
+.page-heading h1{margin:3px 0 5px;font-size:clamp(25px,3vw,34px);letter-spacing:-.035em;line-height:1.15}
+.page-heading p{margin:0;font-size:14px}
+.eyebrow{color:var(--brand);font-size:10px;font-weight:850;letter-spacing:.14em;line-height:1.4}
 .muted{color:var(--muted)}
 .small{font-size:13px}
+h2{font-size:20px;letter-spacing:-.02em;margin:0}
+h3{font-size:16px;margin:0 0 6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.pad{padding:18px}
 .row{display:flex;gap:10px;align-items:center}
-.grow{flex:1}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:12px;
-  background:var(--brand);color:#fff;font-weight:600;border:1px solid transparent;transition:filter .15s}
-.btn:active{filter:brightness(.93)}
-.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
-.btn.soft{background:color-mix(in srgb, var(--brand) 12%, transparent);color:var(--brand);border:1px solid transparent}
-.btn.block{width:100%}
-.btn.sm{padding:8px 12px;font-size:14px;border-radius:10px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:520px){.grid2{grid-template-columns:1fr}}
-.hero{background:linear-gradient(140deg,var(--brand),#5c1010);color:#fff;border-radius:20px;padding:20px;
-  box-shadow:var(--shadow)}
-[data-theme="dark"] .hero{background:linear-gradient(140deg,#7a2420,#3a0f0d)}
-.hero h1{margin:0 0 6px;font-size:22px}
-.hero p{margin:0 0 16px;opacity:.85;font-size:14px}
-.hero .btn{background:#fff;color:var(--brand)}
-.hero .btn.alt{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.4)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
-.stat{background:rgba(255,255,255,.14);border-radius:12px;padding:8px;text-align:center}
-.stat b{display:block;font-size:18px}
-.stat span{font-size:11px;opacity:.85}
-.topic{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);cursor:pointer}
-.topic:last-child{border-bottom:none}
-.tnum{width:32px;height:32px;border-radius:10px;background:color-mix(in srgb,var(--brand) 12%,transparent);
-  color:var(--brand);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;flex:0 0 auto}
-.bar{height:5px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:6px}
-.bar > i{display:block;height:100%;background:var(--ok);width:0}
-.chev{color:var(--muted);font-size:18px}
-.foot-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-/* quiz */
-.qhead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.qhead .grow{min-width:0}
-.timer{font-variant-numeric:tabular-nums;font-weight:700;padding:6px 10px;border-radius:10px;
-  background:color-mix(in srgb,var(--brand) 10%,transparent);color:var(--brand);font-size:14px}
-.badge{display:inline-block;font-size:11px;padding:3px 8px;border-radius:999px;
-  background:color-mix(in srgb,var(--brand) 12%,transparent);color:var(--brand);font-weight:600}
-.qtext{font-size:17px;font-weight:600;line-height:1.45;margin:10px 0 14px}
-.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;padding:13px 14px;border-radius:12px;
-  border:1px solid var(--line);background:var(--card);margin-bottom:8px;transition:.12s}
-.opt .k{width:24px;height:24px;border-radius:8px;background:var(--bg);border:1px solid var(--line);flex:0 0 auto;
-  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted)}
-.opt.sel{border-color:var(--brand);box-shadow:0 0 0 2px color-mix(in srgb,var(--brand) 22%,transparent)}
-.opt.sel .k{background:var(--brand);color:#fff;border-color:var(--brand)}
-.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--card))}
-.opt.ok .k{background:var(--ok);color:#fff;border-color:var(--ok)}
-.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--card))}
-.opt.bad .k{background:var(--bad);color:#fff;border-color:var(--bad)}
-.opt.dim{opacity:.55}
-.explain{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:14px;
-  background:color-mix(in srgb,var(--warn) 12%,var(--card));border:1px solid color-mix(in srgb,var(--warn) 30%,var(--line))}
-.pbar{height:4px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:8px}
-.pbar > i{display:block;height:100%;background:var(--brand);width:0;transition:width .25s}
-.navbar{display:flex;gap:8px;margin-top:14px}
-.result-big{font-size:44px;font-weight:800;line-height:1}
-.pill-ok{color:var(--ok)} .pill-bad{color:var(--bad)}
-.list-item{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
-.list-item.li-q{flex-direction:column;gap:0}
-.li-top{display:flex;align-items:center;gap:6px;margin-bottom:6px}
-.li-top > .grow{display:flex;align-items:center;min-width:0;overflow:hidden;white-space:nowrap}
-.li-top .li-topic{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.li-id{background:color-mix(in srgb,var(--brand) 12%,transparent);color:var(--brand);
-  border-radius:7px;padding:2px 7px;font-size:12px;font-weight:700;margin-right:6px;display:inline-block}
-.li-text{font-size:14px;line-height:1.35;font-weight:600}
-.del{background:none;border:none;cursor:pointer}
-.list-item:last-child{border-bottom:none}
-/* editor */
-.field{margin-bottom:12px}
-.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
-.field input[type=text],.field textarea,.field select{width:100%;padding:11px 12px;border-radius:10px;
-  border:1px solid var(--line);background:var(--bg);color:var(--text);outline:none}
-.field textarea{min-height:76px;resize:vertical;overflow:auto}
-.opt-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
-.opt-row textarea{flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--line);
-  background:var(--bg);color:var(--text);resize:none;overflow:hidden;line-height:1.35;min-height:42px}
-.opt-row{align-items:flex-start}
-.opt-row .chk{margin-top:8px}
-.chk{width:26px;height:26px;border-radius:8px;border:1px solid var(--line);display:flex;align-items:center;
-  justify-content:center;flex:0 0 auto;background:var(--bg);font-size:14px}
-.chk.on{background:var(--ok);border-color:var(--ok);color:#fff}
-.del{color:var(--bad);font-size:18px;padding:4px 8px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;
-  z-index:50;padding:16px}
-.modal.open{display:flex}
-.modal .card{max-width:640px;width:100%;max-height:88vh;overflow:auto}
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:#1e1b18;color:#fff;
-  padding:10px 16px;border-radius:12px;opacity:0;transition:.25s;z-index:90;font-size:14px;max-width:90vw}
-.toast.show{opacity:1;transform:translateX(-50%)}
+.grow{flex:1;min-width:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:11px 16px;border-radius:12px;background:var(--brand);color:#141a26;font-weight:750;border:1px solid transparent;transition:transform .15s,filter .15s,box-shadow .15s;box-shadow:0 5px 14px rgba(255,196,0,.12)}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.btn:active{transform:translateY(0);filter:brightness(.96)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none}
+.btn.ghost:hover{border-color:var(--brand);color:var(--brand);background:color-mix(in srgb,var(--brand) 7%,transparent)}
+.btn.soft{background:color-mix(in srgb,var(--brand) 14%,var(--card));color:var(--brand);border:1px solid color-mix(in srgb,var(--brand) 18%,var(--line));box-shadow:none}
+.btn.block{width:100%}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:10px}
 .hide{display:none!important}
-a{color:var(--brand)}
-.seg{display:flex;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}
-.seg button{flex:1;padding:8px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted)}
-.seg button.on{background:var(--card);color:var(--text);box-shadow:var(--shadow)}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.center-action{text-align:center;margin:16px 0}
+/* dashboard */
+.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(270px,1fr);gap:16px}
+.hero{position:relative;overflow:hidden;min-height:245px;padding:26px 28px;border:1px solid rgba(255,196,0,.22);border-radius:22px;background:radial-gradient(circle at 100% 0,rgba(255,196,0,.16),transparent 40%),linear-gradient(145deg,#181f30,#111a2c 62%,#171d29);box-shadow:var(--shadow)}
+[data-theme="light"] .hero{background:radial-gradient(circle at 100% 0,rgba(255,196,0,.2),transparent 40%),linear-gradient(145deg,#fffdf4,#fff 64%,#f4f6fb)}
+.hero-topline{display:flex;align-items:center;gap:9px;margin-bottom:20px}
+.hero-icon{width:31px;height:31px;display:grid;place-items:center;border-radius:10px;background:rgba(255,196,0,.14);color:var(--brand);font-size:17px}
+.hero h2{font-size:25px;margin:0 0 8px;letter-spacing:-.035em}
+.hero p{max-width:490px;margin:0 0 19px;color:var(--muted);font-size:14px}
+.hero-action{min-width:175px;justify-content:space-between}
+.progress-card{padding:22px;border:1px solid var(--line);border-radius:22px;background:var(--card);box-shadow:var(--shadow)}
+.progress-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.progress-number{display:flex;align-items:baseline;gap:4px;margin-top:6px;font-variant-numeric:tabular-nums}
+.progress-number b{font-size:33px;line-height:1.05;letter-spacing:-.04em}
+.progress-number span{color:var(--muted);font-size:17px;font-weight:650}
+.progress-ring{--progress:0%;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--brand) 0 var(--progress),var(--line) var(--progress) 100%);position:relative}
+.progress-ring:before{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--card)}
+.progress-ring span{position:relative;font-size:12px;font-weight:800}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:18px}
+.stat{padding:10px 8px;border:1px solid var(--line);border-radius:13px;background:var(--card2);text-align:left}
+.stat b{display:block;font-size:17px;line-height:1.15;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:4px;color:var(--muted);font-size:11px}
+.section-heading{display:flex;align-items:flex-end;justify-content:space-between;margin:30px 0 13px}
+.section-heading h2{margin-top:3px}
+.section-heading p{margin:4px 0 0}
+.mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.mode-card{display:flex;align-items:center;gap:13px;min-width:0;text-align:left;padding:15px;border:1px solid var(--line);border-radius:17px;background:var(--card);box-shadow:var(--shadow);transition:.16s}
+.mode-card:hover{border-color:color-mix(in srgb,var(--brand) 58%,var(--line));transform:translateY(-2px)}
+.mode-icon{width:40px;height:40px;display:grid;place-items:center;flex:0 0 auto;border-radius:13px;background:color-mix(in srgb,var(--brand) 12%,var(--card));color:var(--brand);font-size:20px}
+.mode-copy{display:grid;gap:3px;min-width:0}
+.mode-copy b{font-size:14px;line-height:1.25}
+.mode-copy small{color:var(--muted);font-size:12px}
+.mode-arrow{margin-left:auto;color:var(--brand);font-size:20px}
+.topic-heading{margin-top:34px}
+.topic-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.topic-card{min-height:154px;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--shadow);cursor:pointer;transition:.16s}
+.topic-card:hover{border-color:color-mix(in srgb,var(--brand) 56%,var(--line));transform:translateY(-2px)}
+.topic-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.tnum{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--brand) 15%,var(--card));color:var(--brand);font-weight:850;font-size:14px}
+.topic-pct{font-size:12px;color:var(--muted);font-weight:700}
+.topic-name{min-height:42px;font-size:14px;font-weight:730;line-height:1.35}
+.topic-card-foot{display:flex;justify-content:space-between;gap:8px;margin-top:10px;color:var(--muted);font-size:11px}
+.bar{height:6px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:8px}
+.bar>i{display:block;height:100%;border-radius:inherit;background:var(--brand);width:0;transition:width .25s}
+.foot-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+/* search */
+.search-panel{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:10px;padding:14px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--shadow)}
+.search-field{display:flex;align-items:center;gap:10px;min-width:0;padding:0 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.search-field>span{color:var(--brand);font-size:21px}
+.search-field input{width:100%;min-width:0;height:46px;border:0;outline:0;background:transparent;color:var(--text)}
+.search-field select,.search-panel select{min-width:0;padding:0 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text)}
+.search-clear{width:30px;height:30px;border-radius:9px;color:var(--muted);font-size:19px}
+.search-clear:hover{background:var(--card2);color:var(--text)}
+.search-summary{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:14px 2px;color:var(--muted);font-size:13px}
+.search-results{display:grid;gap:10px}
+.search-card{padding:16px;border:1px solid var(--line);border-radius:17px;background:var(--card);box-shadow:var(--shadow)}
+.search-card-head{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.li-id{display:inline-block;padding:3px 8px;border-radius:8px;background:color-mix(in srgb,var(--brand) 14%,var(--card));color:var(--brand);font-size:12px;font-weight:800}
+.search-card h3{font-size:15px;line-height:1.42;margin:0 0 10px}
+.search-match{margin:0 0 10px;color:var(--text);font-size:13px}.search-match span{color:var(--muted)}
+.search-card-foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.search-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{display:inline-flex;padding:3px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-size:10px;font-weight:650}
+.tag.verified{border-color:color-mix(in srgb,var(--ok) 38%,var(--line));color:var(--ok)}
+/* quiz, results and tickets */
+.qhead{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.qhead .grow{min-width:0}
+.h-title{font-weight:800;font-size:17px;line-height:1.2;overflow-wrap:anywhere}
+.h-sub{font-size:12px;color:var(--muted)}
+.timer{font-variant-numeric:tabular-nums;font-weight:750;padding:7px 11px;border-radius:11px;background:color-mix(in srgb,var(--brand) 12%,var(--card));color:var(--brand);font-size:13px}
+.badge{display:inline-block;font-size:11px;padding:4px 8px;border-radius:999px;background:color-mix(in srgb,var(--brand) 13%,var(--card));color:var(--brand);font-weight:750}
+.qtext{font-size:18px;font-weight:680;line-height:1.5;margin:13px 0 16px}
+.qimages{display:grid;gap:9px;margin:-2px 0 14px}.qimages:empty{display:none}
+.qimages img{display:block;width:100%;max-height:520px;object-fit:contain;border:1px solid var(--line);border-radius:14px;background:var(--bg);cursor:zoom-in}
+.verify-btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--muted);font-size:12px;font-weight:750;white-space:nowrap}
+.verify-btn.on{background:color-mix(in srgb,var(--ok) 12%,var(--card));border-color:color-mix(in srgb,var(--ok) 45%,var(--line));color:var(--ok)}
+.opt{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;padding:14px 15px;border-radius:14px;border:1px solid var(--line);background:var(--card2);margin-bottom:9px;transition:.12s}
+.opt .k{width:25px;height:25px;border-radius:9px;background:var(--bg);border:1px solid var(--line);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--muted)}
+.opt.sel{border-color:var(--brand);box-shadow:0 0 0 2px color-mix(in srgb,var(--brand) 20%,transparent)}
+.opt.sel .k{background:var(--brand);color:#101827;border-color:var(--brand)}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--card))}.opt.ok .k{background:var(--ok);color:#07130d;border-color:var(--ok)}
+.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--card))}.opt.bad .k{background:var(--bad);color:#1b0910;border-color:var(--bad)}
+.opt.dim{opacity:.55}
+.explain{margin-top:12px;padding:13px 15px;border-radius:13px;font-size:14px;background:color-mix(in srgb,var(--warn) 10%,var(--card));border:1px solid color-mix(in srgb,var(--warn) 30%,var(--line))}
+.pbar{height:5px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:8px}.pbar>i{display:block;height:100%;background:var(--brand);width:0;transition:width .25s}
+.navbar{display:grid;grid-template-columns:minmax(82px,auto) minmax(0,1fr);gap:9px;margin-top:16px;position:relative;isolation:isolate;touch-action:manipulation}
+.navbar>.btn{width:100%;min-height:50px;min-width:0;position:relative;z-index:1;touch-action:manipulation;-webkit-appearance:none;user-select:none;-webkit-user-select:none}
+.navbar>.btn:hover,.navbar>.btn:active{transform:none}
+.navbar #btnQNext{z-index:2}
+.result-big{font-size:48px;font-weight:850;line-height:1}.pill-ok{color:var(--ok)}.pill-bad{color:var(--bad)}
+.ticket-row{display:flex;align-items:center;gap:12px;padding:15px;border:1px solid var(--line);border-radius:16px;background:var(--card);margin-bottom:9px;cursor:pointer;box-shadow:var(--shadow)}
+.ticket-row:hover{border-color:color-mix(in srgb,var(--brand) 45%,var(--line))}
+.ticket-row .tnum{flex:0 0 auto}.ticket-row .grow{flex:1}.ticket-row .chev{color:var(--muted);font-size:20px}
+/* editor and forms */
+.list-item{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.list-item.li-q{flex-direction:column;gap:0}.li-top{display:flex;align-items:center;gap:6px;margin-bottom:6px}.li-top>.grow{display:flex;align-items:center;min-width:0;overflow:hidden;white-space:nowrap}.li-top .li-topic{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.li-text{font-size:14px;line-height:1.4;font-weight:650}.list-item:last-child{border-bottom:none}
+.del{background:none;border:none;cursor:pointer;color:var(--bad);font-size:18px;padding:4px 8px}
+.field{margin-bottom:12px}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:5px}
+.field input[type=text],.field textarea,.field select{width:100%;padding:11px 12px;border-radius:11px;border:1px solid var(--line);background:var(--bg);color:var(--text);outline:none}
+.field textarea{min-height:76px;resize:vertical;overflow:auto}
+.image-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:10px}
+.image-preview{position:relative;min-width:0;padding:6px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.image-preview img{display:block;width:100%;height:100px;object-fit:contain;border-radius:8px;background:var(--card)}
+.image-preview .del{position:absolute;top:3px;right:3px;width:28px;height:28px;padding:0;border-radius:50%;background:var(--card);box-shadow:var(--shadow)}
+.opt-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}.opt-row textarea{flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);resize:none;overflow:auto;line-height:1.35;min-height:42px}.opt-row .chk{margin-top:8px}
+.chk{width:26px;height:26px;border-radius:8px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:0 0 auto;background:var(--bg);font-size:14px}.chk.on{background:var(--ok);border-color:var(--ok);color:#07130d}
+/* compare and import/export */
+.modal{position:fixed;inset:0;background:rgba(2,7,15,.72);backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}
+.modal.open{display:flex}.modal .card{max-width:640px;width:100%;max-height:90vh;overflow:auto}.modal .io-modal{max-width:920px;padding:22px}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px}.modal-head h2{font-size:23px;margin:3px 0 0}
+.export-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.export-tile{display:flex;align-items:center;gap:12px;text-align:left;min-height:72px;padding:13px;border:1px solid var(--line);border-radius:15px;background:var(--card2);transition:.15s}
+.export-tile:hover{border-color:color-mix(in srgb,var(--brand) 50%,var(--line));transform:translateY(-1px)}
+.export-tile b{display:block;font-size:13px}.export-tile small{display:block;margin-top:3px;color:var(--muted);font-size:11px}
+.export-icon{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border-radius:12px;background:color-mix(in srgb,var(--brand) 14%,var(--card));color:var(--brand);font-size:20px;font-weight:850}
+.primary-export{border-color:color-mix(in srgb,var(--brand) 36%,var(--line));background:color-mix(in srgb,var(--brand) 7%,var(--card))}
+.compare-block{margin-top:13px;padding:16px;border:1px solid var(--line);border-radius:17px;background:var(--card2)}
+.compare-title{display:flex;align-items:flex-start;gap:11px;margin-bottom:13px}.compare-title h3{margin:0;font-size:15px}.compare-title p{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
+.compare-step{width:31px;height:31px;flex:0 0 31px;display:grid;place-items:center;border-radius:10px;background:color-mix(in srgb,var(--brand) 14%,var(--card));color:var(--brand);font-size:11px;font-weight:850}
+.merge-pair{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+.merge-file{position:relative;display:flex;align-items:center;gap:10px;min-width:0;min-height:62px;padding:9px 12px;border:1px dashed var(--line);border-radius:13px;background:var(--bg);cursor:pointer;transition:.15s}
+.merge-file:hover{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 5%,var(--bg))}
+.merge-file input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.merge-device{width:35px;height:35px;display:grid;place-items:center;border-radius:11px;background:var(--card);font-size:17px}
+.merge-file-copy{display:grid;min-width:0}.merge-file-copy b{font-size:12px}.merge-file-copy small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:11px}
+.compare-button{justify-content:space-between;padding:11px 14px}
+.compare-result{margin-top:12px;padding:14px;border:1px solid var(--line);border-radius:13px;background:var(--bg)}
+.compare-result h4{margin:0 0 10px;font-size:13px}.compare-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.compare-metric{padding:9px;border:1px solid var(--line);border-radius:11px;background:var(--card)}.compare-metric b{display:block;font-size:17px;line-height:1.2}.compare-metric small{display:block;margin-top:3px;color:var(--muted);font-size:10px}
+.compare-note{margin:10px 0 0;color:var(--muted);font-size:11px}.diff-list{display:grid;gap:5px;margin-top:10px;max-height:190px;overflow:auto}.diff-row{display:grid;grid-template-columns:70px minmax(0,1fr) 20px;gap:8px;align-items:center;padding:8px;border-radius:9px;background:var(--card);font-size:11px}.diff-row code{color:var(--brand);font:700 11px/1.2 ui-monospace,SFMono-Regular,monospace}.diff-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted)}.diff-row span small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:normal;color:var(--muted);font-size:10px;line-height:1.35;margin-top:3px}.diff-row b{font-variant-numeric:tabular-nums;color:var(--brand)}
+.compare-actions{margin-top:10px}.legacy-import{margin-top:14px;padding:12px;border:1px solid var(--line);border-radius:14px}.legacy-import summary{cursor:pointer;font-size:13px;font-weight:700}.legacy-import p{margin:10px 0}.legacy-import textarea{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(16px);background:var(--brand);color:#101727;padding:11px 16px;border-radius:12px;opacity:0;transition:.22s;z-index:90;font-size:13px;font-weight:750;max-width:90vw;box-shadow:var(--shadow)}
+.toast.show{opacity:1;transform:translateX(-50%)}
+a{color:var(--brand)}.seg{display:flex;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}.seg button{flex:1;padding:8px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted)}.seg button.on{background:var(--card);color:var(--text);box-shadow:var(--shadow)}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.mobile-nav-list{display:grid;gap:5px;margin-top:12px}.mobile-nav-list .side-link{background:var(--card2);color:var(--text)}.mobile-nav-list .side-link span{font-size:14px}
+@media(max-width:1100px){.dashboard-grid{grid-template-columns:1fr}.topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding-left:25px;padding-right:25px}}
+@media(max-width:760px){
+  :root{--sidebar-width:0px}.sidebar{display:none}.app-main{margin-left:0}.wrap{padding-left:18px;padding-right:18px}
+  .top-inner{min-height:62px;gap:9px;padding-top:8px;padding-bottom:8px}.mobile-menu{display:flex;width:38px;height:38px;flex:0 0 38px}.mobile-brand{display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;white-space:nowrap}.mobile-brand .logo{width:35px;height:35px;border-radius:11px;font-size:13px}
+  .global-search{height:40px;padding:0 9px;gap:6px}.global-search input{font-size:12px}.global-search kbd{display:none}.top-actions{gap:5px}.top-actions .icon-btn{width:38px;height:38px}.top-io{display:none}
+  main{padding:23px 0 42px}.page-heading{align-items:flex-start;margin-bottom:18px}.page-heading h1{font-size:27px}.desktop-search{display:none}
+  .dashboard-grid{grid-template-columns:1fr}.hero{min-height:auto;padding:22px}.progress-card{padding:18px}.mode-grid{grid-template-columns:1fr 1fr}.topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topic-card{min-height:148px;padding:13px}
+  .search-panel{grid-template-columns:1fr}.search-panel select{height:43px}.compare-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){.grid2{grid-template-columns:1fr}}
+@media(max-width:460px){
+  .wrap{padding-left:13px;padding-right:13px}.mobile-brand b{display:none}.mobile-brand{gap:0}.global-search{flex:1}.top-inner{gap:7px}.page-heading h1{font-size:24px}.hero h2{font-size:22px}.stats{gap:6px}.stat{padding:9px 7px}.mode-grid{grid-template-columns:1fr}.topic-grid{grid-template-columns:1fr}.topic-card{min-height:0}.topic-name{min-height:0}.merge-pair{grid-template-columns:1fr}.export-grid{grid-template-columns:1fr}.compare-actions{flex-direction:column}.compare-actions .btn{width:100%}.search-card-foot{align-items:flex-start;flex-direction:column}.qtext{font-size:16px}.verify-btn{font-size:11px;padding:7px 9px}.navbar .btn{padding:11px 10px}
+}
+
 </style>
 </head>
 <body>
-<header class="top">
-  <div class="wrap">
-    <div class="logo">1С</div>
-    <div class="grow">
-      <div class="h-title">1С:Профессионал</div>
-      <div class="h-sub" id="hSub">Платформа 8.3 · вопросы и ответы</div>
+<div class="app-shell">
+  <aside class="sidebar" id="appSidebar">
+    <div class="side-brand">
+      <div class="logo">1С</div>
+      <div><div class="side-brand-title">Профессионал</div><div class="side-brand-sub">тренажёр платформы 8</div></div>
     </div>
-    <button class="icon-btn" id="btnTheme" title="Тема">◐</button>
-    <button class="icon-btn" id="btnMenu" title="Меню">☰</button>
-  </div>
-</header>
+    <nav class="side-nav" aria-label="Главная навигация">
+      <button class="side-link active" data-nav="home"><span class="side-icon">⌂</span><span>Главная</span></button>
+      <button class="side-link" data-nav="quick"><span class="side-icon">▦</span><span>Тренировка</span></button>
+      <button class="side-link" data-nav="exam"><span class="side-icon">◷</span><span>Экзамен</span></button>
+      <button class="side-link" data-nav="errors"><span class="side-icon">×</span><span>Ошибки</span><span class="side-count" id="sideErrCount">0</span></button>
+      <button class="side-link" data-nav="fav"><span class="side-icon">✦</span><span>Закладки</span></button>
+      <button class="side-link" data-nav="search"><span class="side-icon">⌕</span><span>Поиск вопросов</span></button>
+      <button class="side-link" data-nav="tickets"><span class="side-icon">▤</span><span>Билеты</span></button>
+      <button class="side-link" data-nav="editor"><span class="side-icon">✎</span><span>База вопросов</span></button>
+    </nav>
+    <div class="sidebar-spacer"></div>
+    <div class="side-bottom">
+      <button class="side-link" id="btnIO"><span class="side-icon">⚙</span><span>Настройки и перенос</span></button>
+      <div class="side-footnote">Ваш прогресс хранится на устройстве</div>
+    </div>
+  </aside>
 
-<main class="wrap">
+  <div class="app-main">
+    <header class="top">
+      <div class="wrap top-inner">
+        <button class="icon-btn mobile-menu" id="btnMenu" title="Меню" aria-label="Открыть меню">☰</button>
+        <div class="mobile-brand"><div class="logo">1С</div><b>Профессионал</b></div>
+        <label class="global-search"><span>⌕</span><input type="search" id="headerSearch" placeholder="Поиск вопросов и ответов…"><kbd>↵</kbd></label>
+        <div class="top-actions">
+          <button class="icon-btn" id="btnTheme" title="Переключить тему" aria-label="Переключить тему">◐</button>
+          <button class="icon-btn top-io" id="btnTopIO" title="Перенос данных" aria-label="Импорт и экспорт">⇧</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
   <!-- HOME -->
   <section id="view-home">
-    <div class="hero">
-      <h1>Готовимся к аттестации</h1>
-      <p>961 официальный вопрос · 14 разделов · ответы и пояснения</p>
-      <div class="grid2">
-        <button class="btn block" id="btnExam">Экзамен · 14 вопросов</button>
-        <button class="btn block alt" id="btnQuick">Быстрая тренировка</button>
+    <div class="page-heading">
+      <div><div class="eyebrow">ЛИЧНЫЙ ТРЕНАЖЁР</div><h1>Подготовка к «1С:Профессионал»</h1>
+        <p class="muted" id="hSub">Платформа «1С:Предприятие 8» · 961 вопрос · 14 разделов</p></div>
+      <button class="btn ghost sm desktop-search" data-nav="search">⌕ Найти вопрос</button>
+    </div>
+    <div class="dashboard-grid">
+      <div class="hero">
+        <div class="hero-topline"><span class="hero-icon">✦</span><span class="eyebrow">ПРОВЕРЬТЕ СЕБЯ</span></div>
+        <h2>Экзамен: 14 вопросов</h2>
+        <p>По одному вопросу из каждого раздела. 30 минут на попытку — и вы увидите, насколько готовы.</p>
+        <button class="btn hero-action" id="btnExam"><span>Начать экзамен</span><span>→</span></button>
       </div>
-      <div class="stats">
-        <div class="stat"><b id="stSeen">0</b><span>изучено</span></div>
-        <div class="stat"><b id="stOk">0%</b><span>верно</span></div>
-        <div class="stat"><b id="stErr">0</b><span>ошибок</span></div>
-        <div class="stat"><b id="stFav">0</b><span>избранное</span></div>
+      <div class="progress-card">
+        <div class="progress-card-head"><div><div class="eyebrow">ВАШ ПРОГРЕСС</div><div class="progress-number"><b id="stSeen">0</b><span>/961</span></div></div><div class="progress-ring" id="progressRing"><span id="stRing">0%</span></div></div>
+        <div class="small muted">вопросов изучено</div>
+        <div class="stats">
+          <div class="stat"><b id="stOk">0%</b><span>верно</span></div>
+          <div class="stat"><b id="stErr">0</b><span>ошибки</span></div>
+          <div class="stat"><b id="stFav">0</b><span>закладки</span></div>
+        </div>
       </div>
     </div>
 
-    <div class="foot-actions">
-      <button class="btn ghost sm" id="btnTickets">Билеты</button>
+    <div class="section-heading"><div><div class="eyebrow">НАЧНИТЕ СЕЙЧАС</div><h2>Режимы обучения</h2></div></div>
+    <div class="mode-grid">
+      <button class="mode-card" id="btnQuick"><span class="mode-icon">▦</span><span class="mode-copy"><b>Быстрая тренировка</b><small>20 случайных вопросов</small></span><span class="mode-arrow">→</span></button>
+      <button class="mode-card" id="btnOrdered"><span class="mode-icon">☷</span><span class="mode-copy"><b>Изучать по порядку</b><small>Все вопросы последовательно</small></span><span class="mode-arrow">→</span></button>
+      <button class="mode-card" id="btnTickets"><span class="mode-icon">▤</span><span class="mode-copy"><b>Экзаменационные билеты</b><small>69 фиксированных билетов</small></span><span class="mode-arrow">→</span></button>
+      <button class="mode-card" id="btnEditor"><span class="mode-icon">✎</span><span class="mode-copy"><b>База вопросов</b><small>Поиск, отметки и редактор</small></span><span class="mode-arrow">→</span></button>
+    </div>
+
+    <div class="section-heading topic-heading"><div><div class="eyebrow">ПРОГРАММА</div><h2>Разделы</h2><p class="small muted">Вопросы внутри раздела идут по порядку номеров.</p></div></div>
+    <div id="topicList" class="topic-grid"></div>
+
+    <div class="foot-actions home-actions">
       <button class="btn ghost sm" id="btnErrors">Повторить ошибки</button>
       <button class="btn ghost sm" id="btnFav">Избранное</button>
-      <button class="btn ghost sm" id="btnEditor">Редактор вопросов</button>
-    </div>
-
-    <h2>Разделы</h2>
-    <div class="card" id="topicList"></div>
-
-    <div class="foot-actions">
-      <button class="btn ghost sm" id="btnIO">Импорт / экспорт</button>
       <button class="btn ghost sm" id="btnReset">Сбросить прогресс</button>
       <button class="btn ghost sm" id="btnAbout">О приложении</button>
     </div>
+  </section>
+
+  <!-- SEARCH -->
+  <section id="view-search" class="hide">
+    <div class="page-heading"><div><div class="eyebrow">БАЗА ЗНАНИЙ</div><h1>Поиск вопросов</h1><p class="muted">Ищите по формулировке, номеру, варианту ответа или пояснению.</p></div></div>
+    <div class="search-panel">
+      <label class="search-field"><span>⌕</span><input type="search" id="searchQuery" placeholder="Например: регистр накопления, 10.47…" autocomplete="off"><button class="search-clear" id="btnSearchClear" type="button" aria-label="Очистить поиск">×</button></label>
+      <select id="searchTopic"><option value="0">Все разделы</option></select>
+    </div>
+    <div class="search-summary"><span id="searchInfo">Введите запрос или выберите раздел.</span><button class="btn ghost sm" id="btnSearchReset">Сбросить фильтр</button></div>
+    <div id="searchList" class="search-results"></div>
+    <div class="center-action"><button class="btn ghost sm hide" id="btnSearchMore">Показать ещё</button></div>
   </section>
 
   <!-- TICKETS -->
@@ -219,11 +349,15 @@ a{color:var(--brand)}
       <div class="timer" id="qTimer">0/0</div>
     </div>
     <div class="card pad">
-      <div class="row" style="justify-content:space-between">
+      <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:8px">
         <span class="badge" id="qBadge">1.1</span>
-        <button class="icon-btn" id="btnStarQ" style="width:34px;height:34px;font-size:16px" title="В избранное">☆</button>
+        <div class="row" style="gap:8px">
+          <button class="verify-btn" id="btnVerifyQ" aria-pressed="false" title="Отметить, что правильный ответ проверен">○ Корректен</button>
+          <button class="icon-btn" id="btnStarQ" style="width:34px;height:34px;font-size:16px" title="В избранное">☆</button>
+        </div>
       </div>
       <div class="qtext" id="qText"></div>
+      <div class="qimages" id="qImages"></div>
       <div id="qOpts"></div>
       <div class="explain hide" id="qExplain"></div>
       <div class="navbar">
@@ -282,6 +416,13 @@ a{color:var(--brand)}
     <div class="card pad">
       <div class="field"><label>Раздел</label><select id="fTopic"></select></div>
       <div class="field"><label>Вопрос</label><textarea id="fQ" placeholder="Текст вопроса"></textarea></div>
+      <div class="field">
+        <label>Картинки к вопросу (необязательно)</label>
+        <input type="file" id="fImages" class="hide" accept="image/*" multiple aria-label="Выбрать картинки к вопросу">
+        <button class="btn ghost sm" id="btnPickImages" type="button">+ Добавить картинку</button>
+        <div id="fImageList" class="image-list"></div>
+        <div class="small muted" style="margin-top:6px">Изображения сохраняются на этом устройстве и включаются в экспорт вопросов.</div>
+      </div>
       <div class="field"><label>Варианты ответа (отметьте правильные)</label><div id="fOpts"></div>
         <button class="btn ghost sm" id="btnAddOpt">+ вариант</button></div>
       <div class="field"><label>Пояснение к ответу (необязательно)</label><textarea id="fNote"></textarea></div>
@@ -291,40 +432,62 @@ a{color:var(--brand)}
       </div>
     </div>
   </section>
-</main>
+    </main>
+  </div>
+</div>
 
 <!-- MODALS -->
 <div class="modal" id="mMenu"><div class="card pad">
-  <h3>Меню</h3>
-  <div style="display:grid;gap:8px;margin-top:10px">
-    <button class="btn ghost block" data-go="exam">Экзамен (14 вопросов, 30 минут)</button>
-    <button class="btn ghost block" data-go="quick">Тренировка по случайным вопросам</button>
-    <button class="btn ghost block" data-go="tickets">Билеты (фиксированные наборы)</button>
-    <button class="btn ghost block" data-go="errors">Повторить ошибки</button>
-    <button class="btn ghost block" data-go="fav">Избранное</button>
-    <button class="btn ghost block" data-go="editor">Редактор вопросов</button>
-    <button class="btn ghost block" data-go="io">Импорт / экспорт</button>
-    <button class="btn ghost block" data-go="about">О приложении</button>
+  <div class="row"><h3 class="grow">Навигация</h3><button class="icon-btn" id="mMenuClose" aria-label="Закрыть">×</button></div>
+  <div class="mobile-nav-list">
+    <button class="side-link" data-go="home">⌂ <span>Главная</span></button>
+    <button class="side-link" data-go="quick">▦ <span>Тренировка</span></button>
+    <button class="side-link" data-go="exam">◷ <span>Экзамен</span></button>
+    <button class="side-link" data-go="errors">× <span>Ошибки</span></button>
+    <button class="side-link" data-go="fav">✦ <span>Закладки</span></button>
+    <button class="side-link" data-go="search">⌕ <span>Поиск вопросов</span></button>
+    <button class="side-link" data-go="tickets">▤ <span>Билеты</span></button>
+    <button class="side-link" data-go="editor">✎ <span>База вопросов</span></button>
+    <button class="side-link" data-go="io">⚙ <span>Настройки и перенос</span></button>
   </div>
-  <button class="btn block" style="margin-top:12px" id="mMenuClose">Закрыть</button>
 </div></div>
 
-<div class="modal" id="mIO"><div class="card pad">
-  <h3>Импорт / экспорт</h3>
-  <p class="small muted">Экспорт сохраняет все вопросы (включая добавленные и изменённые) в JSON-файл. Импорт добавляет вопросы из файла.</p>
-  <div class="row" style="gap:8px;flex-wrap:wrap">
-    <button class="btn sm" id="btnExport">Скачать файл</button>
-    <button class="btn ghost sm" id="btnImportPick">Загрузить файл</button>
-    <input type="file" id="fileInput" accept=".json,application/json" class="hide">
+<div class="modal" id="mIO"><div class="card pad io-modal">
+  <div class="modal-head"><div><div class="eyebrow">СИНХРОНИЗАЦИЯ</div><h2>Импорт и экспорт</h2></div><button class="icon-btn" id="mIOClose" aria-label="Закрыть">×</button></div>
+  <p class="small muted">Экспортируйте данные на телефоне и компьютере, сравните два файла и объедините их без потери отдельных попыток.</p>
+  <div class="export-grid">
+    <button class="export-tile primary-export" id="btnExportProgress"><span class="export-icon">⇧</span><span><b>Выгрузить весь прогресс</b><small>Попытки, ошибки, закладки, билеты, правки</small></span></button>
+    <button class="export-tile" id="btnExport"><span class="export-icon">✓</span><span><b>Вопросы и «Корректен»</b><small>База с отметками и изображениями</small></span></button>
   </div>
-  <div class="field" style="margin-top:12px"><label>Или вставьте JSON</label>
-    <textarea id="ioText" style="min-height:120px" placeholder='[{"q":"...","o":["a","b"],"a":[1]}]'></textarea></div>
-  <div class="row"><button class="btn grow" id="btnImportText">Импортировать</button>
-    <button class="btn ghost" id="mIOClose">Закрыть</button></div>
-  <div style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px">
-    <p class="small muted" style="margin:0 0 8px">Вернуть исходный набор вопросов и отменить все правки редактора:</p>
-    <button class="btn ghost sm" id="btnRestoreBase">Восстановить исходные вопросы</button>
-  </div>
+
+  <section class="compare-block">
+    <div class="compare-title"><span class="compare-step">01</span><div><h3>Сравнить прогресс</h3><p>Выберите архив с каждого устройства. Попытки сольются по устройству и не задвоятся при повторном импорте.</p></div></div>
+    <div class="merge-pair">
+      <label class="merge-file"><span class="merge-device">📱</span><span class="merge-file-copy"><b>Телефон</b><small id="progressFileAName">Выбрать JSON-файл</small></span><input type="file" id="progressFileA" accept=".json,application/json"></label>
+      <label class="merge-file"><span class="merge-device">💻</span><span class="merge-file-copy"><b>Компьютер</b><small id="progressFileBName">Выбрать JSON-файл</small></span><input type="file" id="progressFileB" accept=".json,application/json"></label>
+    </div>
+    <button class="btn block compare-button" id="btnCompareProgress">Сравнить и подготовить объединённый архив <span>→</span></button>
+    <div class="compare-result hide" id="progressCompareResult"></div>
+    <div class="row compare-actions hide" id="progressMergeActions"><button class="btn soft grow" id="btnDownloadProgressMerge">Скачать объединённый архив</button><button class="btn ghost grow" id="btnApplyProgressMerge">Объединить на этом устройстве</button></div>
+  </section>
+
+  <section class="compare-block">
+    <div class="compare-title"><span class="compare-step">02</span><div><h3>Сравнить «Корректен»</h3><p>Объединит отметки двух выгрузок; если вопрос отмечен хотя бы в одной, он останется отмеченным.</p></div></div>
+    <div class="merge-pair">
+      <label class="merge-file"><span class="merge-device">📱</span><span class="merge-file-copy"><b>Выгрузка A</b><small id="questionsFileAName">Выбрать JSON-файл</small></span><input type="file" id="questionsFileA" accept=".json,application/json"></label>
+      <label class="merge-file"><span class="merge-device">💻</span><span class="merge-file-copy"><b>Выгрузка B</b><small id="questionsFileBName">Выбрать JSON-файл</small></span><input type="file" id="questionsFileB" accept=".json,application/json"></label>
+    </div>
+    <button class="btn block compare-button" id="btnCompareQuestions">Сравнить и объединить отметки <span>→</span></button>
+    <div class="compare-result hide" id="questionsCompareResult"></div>
+    <div class="row compare-actions hide" id="questionsMergeActions"><button class="btn soft grow" id="btnDownloadQuestionsMerge">Скачать объединённые вопросы</button><button class="btn ghost grow" id="btnApplyQuestionsMerge">Объединить на этом устройстве</button></div>
+  </section>
+
+  <details class="legacy-import"><summary>Один файл или старый JSON</summary>
+    <p class="small muted">Импортирует прежний архив, отдельную выгрузку вопросов или JSON-текст.</p>
+    <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn ghost sm" id="btnImportPick">Выбрать файл</button><input type="file" id="fileInput" accept=".json,application/json" class="hide"></div>
+    <div class="field" style="margin-top:12px"><label>Или вставьте JSON</label><textarea id="ioText" style="min-height:100px" placeholder='[{"q":"...","o":["a","b"],"a":[1]}]'></textarea></div>
+    <div class="row"><button class="btn grow" id="btnImportText">Импортировать</button><button class="btn ghost sm" id="btnRestoreBase">Восстановить базу</button></div>
+  </details>
 </div></div>
 
 <div class="modal" id="mAbout"><div class="card pad">
@@ -341,43 +504,115 @@ a{color:var(--brand)}
 const DB = __DATA__;
 const LS = {
   get(k, d){ try{ const v = localStorage.getItem('1cp_'+k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
-  set(k, v){ try{ localStorage.setItem('1cp_'+k, JSON.stringify(v)); }catch(e){} }
+  set(k, v){ try{ localStorage.setItem('1cp_'+k, JSON.stringify(v)); return true; }catch(e){ return false; } }
 };
 const S = {
   qs: [], topics: DB.topics,
-  stats: LS.get('stats', {}),      // id -> [seen, ok]
-  fav: LS.get('fav', []),
-  err: LS.get('err', []),
-  ov: LS.get('ov', {}),            // id -> patch | {del:1}
-  add: LS.get('add', []),          // новые вопросы
-  theme: LS.get('theme', ''),
-  tk: LS.get('tk', {})             // ticketNo -> {ok, total, ts}
+  stats: LS.get('stats', {}),
+  statsByDevice: LS.get('statsByDevice', {}),
+  deviceId: LS.get('deviceId', ''),
+  fav: LS.get('fav', []), err: LS.get('err', []),
+  ov: LS.get('ov', {}), add: LS.get('add', []),
+  theme: LS.get('theme', 'dark'),
+  tk: LS.get('tk', {}), verified: LS.get('verified', [])
 };
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const esc = s => (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const choiceNums = '123456789';
+function normalizeImages(value){
+  const list = Array.isArray(value) ? value : (value ? [value] : []);
+  return list.filter(src => typeof src === 'string' && /^data:image\/(?:png|jpe?g|webp|gif|bmp);base64,/i.test(src));
+}
+function makeDeviceId(){ return 'device-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,10); }
+function cleanStatsMap(raw){
+  const out = {};
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return out;
+  Object.keys(raw).forEach(id => {
+    const v = raw[id]; if (!Array.isArray(v)) return;
+    const seen = Math.max(0, Math.floor(Number(v[0])||0));
+    const correct = Math.min(seen, Math.max(0, Math.floor(Number(v[1])||0)));
+    if (seen || correct) out[id] = [seen,correct];
+  });
+  return out;
+}
+function cleanStatsLedger(raw){
+  const out = {};
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return out;
+  Object.keys(raw).forEach(device => { const map = cleanStatsMap(raw[device]); if (Object.keys(map).length) out[device] = map; });
+  return out;
+}
+function aggregateStats(ledger){
+  const out = {};
+  Object.values(ledger || {}).forEach(map => Object.keys(map || {}).forEach(id => {
+    const v = map[id] || [0,0], t = out[id] || [0,0];
+    t[0] += v[0]||0; t[1] += v[1]||0; out[id] = t;
+  }));
+  return out;
+}
+function mergeStatsLedgers(a,b){
+  const out = cleanStatsLedger(a), incoming = cleanStatsLedger(b);
+  Object.keys(incoming).forEach(device => {
+    if (!out[device]) out[device] = {};
+    Object.keys(incoming[device]).forEach(id => {
+      const x = out[device][id] || [0,0], y = incoming[device][id];
+      out[device][id] = [Math.max(x[0],y[0]),Math.max(x[1],y[1])];
+    });
+  });
+  return out;
+}
+function recordAttempt(id, isCorrect){
+  if (!S.statsByDevice[S.deviceId]) S.statsByDevice[S.deviceId] = {};
+  const v = S.statsByDevice[S.deviceId][id] || [0,0];
+  S.statsByDevice[S.deviceId][id] = [v[0]+1,v[1]+(isCorrect?1:0)];
+  S.stats = aggregateStats(S.statsByDevice);
+  LS.set('statsByDevice',S.statsByDevice); LS.set('stats',S.stats);
+}
+if (!S.deviceId){ S.deviceId = makeDeviceId(); LS.set('deviceId',S.deviceId); }
+S.stats = cleanStatsMap(S.stats);
+S.statsByDevice = cleanStatsLedger(S.statsByDevice);
+if (!Object.keys(S.statsByDevice).length) S.statsByDevice[S.deviceId] = S.stats;
+S.stats = aggregateStats(S.statsByDevice);
+if (!Array.isArray(S.verified)) S.verified = [];
+if (!Array.isArray(S.err)) S.err = [];
+if (!Array.isArray(S.fav)) S.fav = [];
+if (!S.ov || typeof S.ov !== 'object' || Array.isArray(S.ov)) S.ov = {};
+if (!Array.isArray(S.add)) S.add = [];
+if (!S.tk || typeof S.tk !== 'object' || Array.isArray(S.tk)) S.tk = {};
+S.theme = S.theme === 'light' || S.theme === '' ? 'light' : 'dark';
+LS.set('statsByDevice',S.statsByDevice); LS.set('stats',S.stats); LS.set('theme',S.theme);
 
 function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('show');
   clearTimeout(el._t); el._t = setTimeout(()=>el.classList.remove('show'), 1900); }
 
 function buildDB(){
-  const base = DB.questions.map(q => ({...q, o: q.o.slice(), a: q.a.slice()}));
+  const base = DB.questions.map(q => ({...q, o: q.o.slice(), a: q.a.slice(), imgs:normalizeImages(q.imgs || q.images || q.img || q.image)}));
   const map = new Map(base.map(q => [q.id, q]));
   for (const id in S.ov){
     const p = S.ov[id]; const q = map.get(id);
     if (!q) continue;
     if (p.del) { map.delete(id); continue; }
     Object.assign(q, p);
+    q.imgs = normalizeImages(q.imgs || q.images || q.img || q.image);
   }
-  S.add.forEach(a => map.set(a.id, {...a, o:a.o.slice(), a:a.a.slice()}));
+  S.add.forEach(a => map.set(a.id, {...a, o:a.o.slice(), a:a.a.slice(), imgs:normalizeImages(a.imgs || a.images || a.img || a.image)}));
   S.qs = [...map.values()];
 }
 
 /* ---------- navigation ---------- */
-const views = ['home','tickets','quiz','result','editor','form'];
+const views = ['home','search','tickets','quiz','result','editor','form'];
+function setActiveNav(v){
+  let active = v;
+  if (v === 'form') active = 'editor';
+  if (v === 'quiz' || v === 'result'){
+    active = Q.mode === 'exam' ? 'exam' : Q.mode === 'ticket' ? 'tickets' :
+      Q.studyMode === 'errors' ? 'errors' : Q.studyMode === 'fav' ? 'fav' : 'quick';
+  }
+  $$('[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === active));
+}
 function show(v){
   views.forEach(x => $('#view-'+x).classList.toggle('hide', x !== v));
+  setActiveNav(v);
   try{
     if (v !== 'home' && !history.state) history.pushState({v}, '');
     else if (v === 'home' && history.state) history.replaceState(null, '');
@@ -387,13 +622,57 @@ function show(v){
 
 /* ---------- home ---------- */
 function homeStats(){
-  let seen = 0, ok = 0;
-  for (const id in S.stats){ seen++; if (S.stats[id][1] > 0) ok++; }
+  const studied = S.qs.filter(q => (S.stats[q.id]||[0,0])[0] > 0);
+  const seen = studied.length, correct = studied.filter(q => (S.stats[q.id]||[0,0])[1] > 0).length;
+  const pct = S.qs.length ? Math.round(seen/S.qs.length*100) : 0;
   $('#stSeen').textContent = seen;
-  $('#stOk').textContent = seen ? Math.round(ok/seen*100) + '%' : '0%';
+  $('#stOk').textContent = seen ? Math.round(correct/seen*100) + '%' : '0%';
   $('#stErr').textContent = S.err.length;
   $('#stFav').textContent = S.fav.length;
-  $('#hSub').textContent = 'Платформа 8.3 · ' + S.qs.length + ' вопрос(ов)';
+  if ($('#stRing')) $('#stRing').textContent = pct + '%';
+  if ($('#progressRing')) $('#progressRing').style.setProperty('--progress',pct+'%');
+  if ($('#sideErrCount')) { $('#sideErrCount').textContent = S.err.length; $('#sideErrCount').classList.toggle('hide',!S.err.length); }
+  $('#hSub').textContent = 'Платформа «1С:Предприятие 8» · ' + S.qs.length + ' вопросов · ' + S.topics.length + ' разделов';
+}
+const Search = {term:'', topic:0, limit:40, results:[]};
+function fillSearchTopics(){
+  const sel = $('#searchTopic'); if (!sel) return;
+  sel.innerHTML = '<option value="0">Все разделы</option>' + S.topics.map(t => `<option value="${t.id}">${t.id}. ${esc(t.name)}</option>`).join('');
+}
+function searchOpen(term=''){
+  Search.term = term || ''; Search.topic = 0; Search.limit = 40;
+  $('#searchQuery').value = Search.term; $('#searchTopic').value = '0';
+  show('search'); renderSearch();
+  setTimeout(() => $('#searchQuery').focus(), 0);
+}
+function renderSearch(){
+  const query = ($('#searchQuery').value || '').trim().toLocaleLowerCase('ru-RU');
+  const topic = +$('#searchTopic').value || 0;
+  Search.term = query; Search.topic = topic;
+  const list = S.qs.filter(q => {
+    if (topic && q.topic !== topic) return false;
+    if (!query) return !!topic;
+    return [q.id,q.q,(q.o||[]).join(' '),q.n||''].join(' ').toLocaleLowerCase('ru-RU').includes(query);
+  });
+  const idQuery = /^\d+(?:\.\d+)?$/.test(query);
+  if (idQuery) list.sort((a,b) => (a.id===query?-1:0) - (b.id===query?-1:0) || a.id.localeCompare(b.id,undefined,{numeric:true}));
+  Search.results = list;
+  const shown = list.slice(0,Search.limit);
+  $('#searchInfo').textContent = query || topic ? `Найдено: ${list.length}${shown.length<list.length ? ' · показаны первые '+shown.length : ''}` : 'Введите запрос или выберите раздел.';
+  const box = $('#searchList'); box.innerHTML = '';
+  shown.forEach(q => {
+    const topicObj = S.topics.find(t => t.id === q.topic);
+    const matchOption = query && !(q.q||'').toLocaleLowerCase('ru-RU').includes(query) ? (q.o||[]).find(o=>o.toLocaleLowerCase('ru-RU').includes(query)) : '';
+    const card = document.createElement('article'); card.className = 'search-card';
+    card.innerHTML = `<div class="search-card-head"><span class="li-id">${esc(q.id)}</span><span class="small muted">${esc(topicObj ? topicObj.name : '')}</span></div>
+      <h3>${esc(q.q)}</h3>
+      ${matchOption ? `<p class="search-match"><span>Совпадение в варианте:</span> ${esc(matchOption)}</p>` : ''}
+      <div class="search-card-foot"><div class="search-tags">${S.verified.includes(q.id)?'<span class="tag verified">✓ Корректен</span>':''}${S.fav.includes(q.id)?'<span class="tag">✦ Закладка</span>':''}${normalizeImages(q.imgs).length?'<span class="tag">▧ С изображением</span>':''}</div><button class="btn sm" data-open="${esc(q.id)}">Открыть вопрос <span>→</span></button></div>`;
+    card.querySelector('[data-open]').onclick = () => startQuiz({ids:[q.id]});
+    card.addEventListener('dblclick',e=>{if(!e.target.closest('button'))startQuiz({ids:[q.id]});});
+    box.appendChild(card);
+  });
+  $('#btnSearchMore').classList.toggle('hide',shown.length>=list.length);
 }
 function renderTopics(){
   const box = $('#topicList'); box.innerHTML = '';
@@ -402,12 +681,11 @@ function renderTopics(){
     const done = qs.filter(q => (S.stats[q.id]||[0])[0] > 0).length;
     const pct = qs.length ? Math.round(done/qs.length*100) : 0;
     const el = document.createElement('div');
-    el.className = 'topic';
-    el.innerHTML = `<div class="tnum">${t.id}</div>
-      <div class="grow"><div style="font-size:14px;font-weight:600">${esc(t.name)}</div>
-      <div class="small muted">${done} из ${qs.length} · ${pct}%</div>
-      <div class="bar"><i style="width:${pct}%"></i></div></div>
-      <div class="chev">›</div>`;
+    el.className = 'topic topic-card';
+    el.innerHTML = `<div class="topic-card-head"><div class="tnum">${t.id}</div><span class="topic-pct">${pct}%</span></div>
+      <div class="topic-name">${esc(t.name)}</div>
+      <div class="topic-card-foot"><span>${done}/${qs.length} изучено</span><span>${qs.length} вопросов</span></div>
+      <div class="bar"><i style="width:${pct}%"></i></div>`;
     el.onclick = () => startQuiz({mode:'topic', topic:t.id});
     box.appendChild(el);
   });
@@ -468,7 +746,7 @@ function renderTickets(){
     if (TK.onlyNew && S.tk[n]) return;
     shown++;
     const pct = st.total ? Math.round(st.done / st.total * 100) : 0;
-    const el = document.createElement('div'); el.className = 'topic';
+    const el = document.createElement('div'); el.className = 'topic ticket-row';
     const mark = S.tk[n] ? (S.tk[n].ok >= Math.ceil(S.tk[n].total*0.86) ? '✓ сдан' : '↻ был') : '';
     el.innerHTML = `<div class="tnum">${n}</div>
       <div class="grow"><div style="font-size:14px;font-weight:600">Билет ${n}</div>
@@ -488,7 +766,7 @@ function startTicket(n){
 }
 
 /* ---------- quiz ---------- */
-const Q = { list: [], i: 0, mode: 'train', ticket: 0, answers: [], sel: [], checked: false, t0: 0, timer: null, left: 0 };
+const Q = { list: [], i: 0, mode: 'train', studyMode: 'quick', ticket: 0, answers: [], sel: [], checked: false, t0: 0, timer: null, left: 0 };
 
 function shuffle(a){ for (let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
@@ -501,27 +779,29 @@ function startQuiz(opt){
       if (qs.length) list.push(qs[Math.floor(Math.random()*qs.length)]);
     });
     list = shuffle(list.slice(0,14));
-    Q.mode = 'exam'; Q.left = 30*60;
+    Q.mode = 'exam'; Q.studyMode = 'exam'; Q.left = 30*60;
   } else if (opt.mode === 'errors'){
-    list = S.err.map(id => S.qs.find(q => q.id === id)).filter(Boolean);
+    list = S.qs.filter(q => S.err.includes(q.id));
     if (!list.length) return toast('Ошибок пока нет');
-    Q.mode = 'train';
+    Q.mode = 'train'; Q.studyMode = 'errors';
   } else if (opt.mode === 'fav'){
-    list = S.fav.map(id => S.qs.find(q => q.id === id)).filter(Boolean);
+    list = S.qs.filter(q => S.fav.includes(q.id));
     if (!list.length) return toast('В избранном пусто');
-    Q.mode = 'train';
+    Q.mode = 'train'; Q.studyMode = 'fav';
   } else if (opt.mode === 'topic'){
     list = S.qs.filter(q => q.topic === opt.topic);
-    shuffle(list);
-    Q.mode = 'train'; Q.topic = opt.topic;
+    Q.mode = 'train'; Q.studyMode = 'topic'; Q.topic = opt.topic;
+  } else if (opt.mode === 'ordered'){
+    list = S.qs.slice();
+    Q.mode = 'train'; Q.studyMode = 'ordered';
   } else {
     list = shuffle(S.qs.slice()).slice(0, 20);
-    Q.mode = 'train';
+    Q.mode = 'train'; Q.studyMode = 'quick';
   }
   if (opt.ids){
     list = opt.ids.map(id => S.qs.find(q => q.id === id)).filter(Boolean);
-    if (opt.mode === 'ticket'){ Q.mode = 'ticket'; Q.ticket = opt.ticket; }
-    else { Q.mode = 'train'; }
+    if (opt.mode === 'ticket'){ Q.mode = 'ticket'; Q.studyMode = 'ticket'; Q.ticket = opt.ticket; }
+    else { Q.mode = 'train'; if (!opt.mode) Q.studyMode = 'custom'; }
   }
   Q.list = list; Q.i = 0; Q.answers = list.map(() => null); Q.chev = 0;
   Q.t0 = Date.now();
@@ -542,6 +822,13 @@ function startQuiz(opt){
   }
 }
 function stopTimer(){ clearInterval(Q.timer); }
+function updateNextButton(){
+  const last = Q.i === Q.list.length-1;
+  if (Q.mode === 'exam') $('#btnQNext').textContent = last ? 'Завершить' : 'Далее';
+  else if (Q.checked) $('#btnQNext').textContent = last ? 'Завершить' : 'Далее';
+  else if (Q.sel.length) $('#btnQNext').textContent = 'Проверить';
+  else $('#btnQNext').textContent = last ? 'Пропустить и завершить' : 'Пропустить';
+}
 
 function renderQ(){
   const q = Q.list[Q.i];
@@ -554,13 +841,20 @@ function renderQ(){
   if (Q.mode !== 'exam') $('#qTimer').textContent = (Q.i+1) + '/' + Q.list.length;
   $('#qBadge').textContent = q.id;
   $('#btnStarQ').textContent = S.fav.includes(q.id) ? '★' : '☆';
+  updateVerifyButton(q.id);
   $('#qText').textContent = q.q;
+  const imageBox = $('#qImages'); imageBox.innerHTML = '';
+  normalizeImages(q.imgs).forEach((src, idx) => {
+    const img = document.createElement('img');
+    img.src = src; img.alt = 'Иллюстрация ' + (idx+1) + ' к вопросу ' + q.id;
+    imageBox.appendChild(img);
+  });
   $('#qExplain').classList.add('hide');
   const box = $('#qOpts'); box.innerHTML = '';
   q.o.forEach((o, idx) => {
     const b = document.createElement('button');
     b.className = 'opt';
-    b.innerHTML = `<span class="k">${letters[idx]}</span><span>${esc(o)}</span>`;
+    b.innerHTML = `<span class="k">${choiceNums[idx]}</span><span>${esc(o)}</span>`;
     b.onclick = () => {
       if (Q.checked) return;
       if (multi){
@@ -572,23 +866,24 @@ function renderQ(){
         $$('#qOpts .opt').forEach(x => x.classList.remove('sel'));
         b.classList.add('sel');
       }
-      const next = $('#btnQNext');
-      next.textContent = (Q.i === Q.list.length-1) ? 'Завершить' : 'Ответить';
+      updateNextButton();
     };
     box.appendChild(b);
   });
   $('#btnQBack').style.visibility = Q.i ? 'visible' : 'hidden';
-  $('#btnQNext').textContent = (Q.mode === 'exam') ? ((Q.i === Q.list.length-1) ? 'Завершить' : 'Далее') : 'Проверить';
-  // уже отвечен?
+  updateNextButton();
+  // Восстанавливаем отмеченный, ожидающий проверки или пропущенный ответ.
   const a = Q.answers[Q.i];
   if (a) restoreAnswer(a);
 }
 
 function restoreAnswer(a){
-  Q.sel = a.sel.slice();
-  $$('#qOpts .opt').forEach((b, idx) => { if (a.sel.includes(idx+1)) b.classList.add('sel'); });
-  if (Q.mode === 'train') checkAnswer(true);
-  else $('#btnQNext').textContent = (Q.i === Q.list.length-1) ? 'Завершить' : 'Далее';
+  if (a.skipped){ Q.sel = []; Q.checked = false; updateNextButton(); return; }
+  Q.sel = (a.sel || []).slice();
+  $$('#qOpts .opt').forEach((b, idx) => { if (Q.sel.includes(idx+1)) b.classList.add('sel'); });
+  if (a.pending){ Q.checked = false; updateNextButton(); return; }
+  if (Q.mode === 'train' || Q.mode === 'ticket') checkAnswer(true);
+  else updateNextButton();
 }
 
 function checkAnswer(silent){
@@ -608,51 +903,74 @@ function checkAnswer(silent){
     else b.classList.add('dim');
   });
   if (Q.mode === 'train' || Q.mode === 'ticket'){
-    const st = S.stats[q.id] || [0,0];
-    st[0]++; if (ok) st[1]++; S.stats[q.id] = st;
-    if (ok){ S.err = S.err.filter(x => x !== q.id); }
-    else if (!S.err.includes(q.id)) S.err.push(q.id);
-    LS.set('stats', S.stats); LS.set('err', S.err);
+    if (!silent){
+      recordAttempt(q.id,ok);
+      if (ok){ S.err = S.err.filter(x => x !== q.id); }
+      else if (!S.err.includes(q.id)) S.err.push(q.id);
+      LS.set('err', S.err);
+      homeStats();
+    }
     const ex = $('#qExplain');
-    ex.innerHTML = `<b>${ok ? 'Верно!' : 'Правильный ответ: ' + cor.map(n => letters[n-1]).join(', ')}</b>` +
+    ex.innerHTML = `<b>${ok ? 'Верно!' : 'Правильный ответ: ' + cor.map(n => choiceNums[n-1]).join(', ')}</b>` +
       (q.n ? '<div style="margin-top:4px">' + esc(q.n) + '</div>' : '');
     ex.classList.remove('hide');
-    $('#btnQNext').textContent = (Q.i === Q.list.length-1) ? 'Завершить' : 'Далее';
-    homeStats();
+    updateNextButton();
   }
 }
 
 function nextQ(){
-  const q = Q.list[Q.i];
   if (Q.mode === 'train' || Q.mode === 'ticket'){
     if (!Q.checked){
-      if (!Q.sel.length) return toast('Выберите вариант ответа');
+      if (!Q.sel.length){
+        Q.answers[Q.i] = {sel:[], skipped:true};
+        if (Q.i === Q.list.length-1) return finishQuiz();
+        Q.i++; renderQ(); return;
+      }
       Q.answers[Q.i] = {sel:Q.sel.slice()};
       checkAnswer();
       return;
     }
   } else {
-    Q.answers[Q.i] = {sel: Q.sel.slice()};
+    Q.answers[Q.i] = {sel:Q.sel.slice()};
   }
   if (Q.i === Q.list.length-1) return finishQuiz();
   Q.i++; renderQ();
 }
-function prevQ(){ if (Q.i>0){ if (Q.mode==='exam') Q.answers[Q.i] = {sel:Q.sel.slice()}; Q.i--; renderQ(); } }
+function prevQ(){
+  if (Q.i <= 0) return;
+  if (Q.mode === 'exam') Q.answers[Q.i] = {sel:Q.sel.slice()};
+  else if (!Q.checked) Q.answers[Q.i] = Q.sel.length ? {sel:Q.sel.slice(), pending:true} : {sel:[], skipped:true};
+  Q.i--; renderQ();
+}
 
 function finishQuiz(){
   stopTimer();
   $('#btnNextTicket').classList.add('hide');
   $('#btnHome').textContent = 'На главную';
   $('#qTimer').textContent = '';
-  let ok = 0, total = Q.list.length;
+  let ok = 0, total = Q.list.length, skippedCount = 0;
   const wrong = [];
   Q.list.forEach((q, i) => {
     const a = Q.answers[i];
-    const sel = a ? a.sel.slice().sort() : [];
+    const rawSel = a && Array.isArray(a.sel) ? a.sel : [];
+    const sel = rawSel.slice().sort();
     const cor = q.a.slice().sort();
-    const good = sel.length && sel.length === cor.length && sel.every((v,k)=>v===cor[k]);
-    if (good) ok++; else wrong.push({q, sel});
+    const unanswered = !sel.length;
+    const good = !unanswered && sel.length === cor.length && sel.every((v,k)=>v===cor[k]);
+    if (unanswered) skippedCount++;
+    if (good) ok++;
+    else {
+      wrong.push({q, sel});
+      if (unanswered && (Q.mode === 'train' || Q.mode === 'ticket')){
+        recordAttempt(q.id,false);
+        if (!S.err.includes(q.id)) S.err.push(q.id);
+      }
+    }
   });
+  if (Q.mode === 'train' || Q.mode === 'ticket'){
+    LS.set('stats', S.stats); LS.set('err', S.err);
+    homeStats(); renderTopics();
+  }
   if (Q.mode === 'ticket'){
     S.tk[Q.ticket] = {ok, total, ts: Date.now()};
     LS.set('tk', S.tk);
@@ -663,7 +981,7 @@ function finishQuiz(){
     $('#rVerdict').textContent = pct >= 86 ? 'Билет сдан' : pct >= 60 ? 'Почти, повторите слабые места' : 'Нужно повторить';
     $('#rVerdict').className = pct >= 86 ? 'pill-ok' : 'pill-bad';
     const spentT = Math.round((Date.now()-Q.t0)/1000);
-    $('#rInfo').textContent = `Верно ${ok} из ${total} · время ${Math.floor(spentT/60)} мин ${spentT%60} с`;
+    $('#rInfo').textContent = `Верно ${ok} из ${total}${skippedCount ? ' · пропущено ' + skippedCount : ''} · время ${Math.floor(spentT/60)} мин ${spentT%60} с`;
     $('#btnHome').textContent = 'К списку билетов';
     if (!TK.list.length) TK.list = buildTickets();
     const nextN = Q.ticket >= TK.list.length ? 1 : Q.ticket + 1;
@@ -679,15 +997,20 @@ function finishQuiz(){
     $('#rVerdict').textContent = pass ? 'СДАНО' : 'НЕ СДАНО';
     $('#rVerdict').className = pass ? 'pill-ok' : 'pill-bad';
     const spent = Math.round((Date.now()-Q.t0)/1000);
-    $('#rInfo').textContent = `Время: ${Math.floor(spent/60)} мин ${spent%60} с · для зачёта нужно 12 из 14`;
+    $('#rInfo').textContent = `Время: ${Math.floor(spent/60)} мин ${spent%60} с · для зачёта нужно 12 из 14${skippedCount ? ' · без ответа ' + skippedCount : ''}`;
   } else {
     show('result');
     const pct = total ? Math.round(ok/total*100) : 0;
-    $('#rTitle').textContent = 'Тренировка · ' + total + ' вопросов';
+    const topicObj = S.topics.find(t => t.id === Q.topic);
+    const title = Q.studyMode === 'ordered' ? 'Вопросы по порядку' :
+      Q.studyMode === 'topic' ? 'Раздел · ' + (topicObj ? topicObj.name : Q.topic) :
+      Q.studyMode === 'errors' ? 'Повтор ошибок' :
+      Q.studyMode === 'fav' ? 'Избранное' : 'Тренировка';
+    $('#rTitle').textContent = title + ' · ' + total + ' вопросов';
     $('#rScore').textContent = pct + '%';
     $('#rVerdict').textContent = pct >= 85 ? 'Отлично!' : pct >= 60 ? 'Хорошо, но есть что подтянуть' : 'Нужно повторить';
     $('#rVerdict').className = pct >= 60 ? 'pill-ok' : 'pill-bad';
-    $('#rInfo').textContent = `Верно ${ok} из ${total}`;
+    $('#rInfo').textContent = `Верно ${ok} из ${total}${skippedCount ? ' · пропущено ' + skippedCount : ''}`;
   }
   const box = $('#rList'); box.innerHTML = '';
   if (wrong.length){
@@ -696,8 +1019,8 @@ function finishQuiz(){
       const d = document.createElement('div'); d.className = 'card pad'; d.style.marginBottom = '10px';
       d.innerHTML = `<div class="small muted">${esc(q.topicName)} · ${q.id}</div>
         <div style="font-weight:600;margin:6px 0">${esc(q.q)}</div>
-        <div class="small" style="color:var(--ok)">Верно: ${q.a.map(n=>letters[n-1]+') '+esc(q.o[n-1])).join('; ')}</div>
-        ${sel.length ? `<div class="small" style="color:var(--bad)">Ваш ответ: ${sel.map(n=>letters[n-1]).join(', ')}</div>` : ''}
+        <div class="small" style="color:var(--ok)">Верно: ${q.a.map(n=>choiceNums[n-1]+') '+esc(q.o[n-1])).join('; ')}</div>
+        ${sel.length ? `<div class="small" style="color:var(--bad)">Ваш ответ: ${sel.map(n=>choiceNums[n-1]).join(', ')}</div>` : ''}
         ${q.n ? `<div class="small muted" style="margin-top:6px">${esc(q.n)}</div>` : ''}`;
       box.appendChild(d);
     });
@@ -746,6 +1069,9 @@ function renderEditor(){
   if (!all.length) box.innerHTML = '<div class="muted">Ничего не найдено</div>';
   shown.forEach(q => {
     const d = document.createElement('div'); d.className = 'list-item li-q';
+    const imageCount = normalizeImages(q.imgs).length;
+    const verifiedMark = S.verified.includes(q.id) ? '<span class="badge" style="margin-left:6px;background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)">✓ Корректен</span>' : '';
+    const imageMark = imageCount ? `<div class="small muted" style="margin-top:4px">🖼 ${imageCount} карт.</div>` : '';
     d.innerHTML = `<div class="li-top">
         <div class="grow" style="min-width:0">
           <span class="li-id">${q.id}</span>
@@ -756,14 +1082,15 @@ function renderEditor(){
         <button class="del" title="Удалить">✕</button>
       </div>
       <div class="li-text">${esc(q.q)}</div>
-      <div class="small" style="color:var(--ok);margin-top:4px;font-weight:600">Ответ: ${q.a.map(n=>letters[n-1]).join(', ')}</div>`;
+      <div class="small" style="color:var(--ok);margin-top:4px;font-weight:600">Ответ: ${q.a.map(n=>choiceNums[n-1]).join(', ')}${verifiedMark}</div>
+      ${imageMark}`;
     const [bFav, bEdit, bDel] = [...d.querySelectorAll('button')];
     bFav.onclick = () => { toggleFav(q.id); renderEditor(); };
     bEdit.onclick = () => openForm(q);
     bDel.onclick = () => {
       if (!confirm('Удалить вопрос ' + q.id + '?')) return;
       if (q.id.startsWith('u-')) { S.add = S.add.filter(a => a.id !== q.id); LS.set('add', S.add); }
-      else { S.ov[q.id] = {del:1}; LS.set('ov', S.ov); }
+      else { S.ov[q.id] = {del:1, updatedAt:Date.now()}; LS.set('ov', S.ov); }
       buildDB(); renderEditor(); homeStats(); renderTopics();
       toast('Вопрос удалён');
     };
@@ -772,7 +1099,7 @@ function renderEditor(){
   $('#btnMore').classList.toggle('hide', shown.length >= all.length);
 }
 
-let formId = null, formOpts = [], formCorrect = [];
+let formId = null, formOpts = [], formCorrect = [], formImages = [], imageBusy = false;
 function fillTopicSelects(){
   const o = S.topics.map(t => `<option value="${t.id}">${t.id}. ${esc(t.name)}</option>`).join('');
   $('#fTopic').innerHTML = o;
@@ -786,6 +1113,9 @@ function openForm(q){
   $('#fNote').value = q ? q.n : '';
   formOpts = q ? q.o.slice() : ['', ''];
   formCorrect = q ? q.a.slice() : [];
+  formImages = q ? normalizeImages(q.imgs) : [];
+  imageBusy = false;
+  renderFormImages();
   renderFormOpts();
   [['#fQ', 300], ['#fNote', 200]].forEach(([sel, max]) => {
     const el = $(sel);
@@ -795,12 +1125,93 @@ function openForm(q){
   });
   show('form');
 }
+function readImageFile(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ''));
+    reader.onerror = () => reject(new Error('Файл не удалось прочитать'));
+    reader.readAsDataURL(file);
+  });
+}
+function imageToDataUrl(file){
+  if (!file.type || file.type.indexOf('image/') !== 0) return Promise.reject(new Error('Выберите файл изображения'));
+  if (file.size > 12*1024*1024) return Promise.reject(new Error('Файл больше 12 МБ'));
+  return readImageFile(file).then(src => {
+    if (file.type === 'image/gif'){
+      if (src.length > 1900000) throw new Error('GIF слишком большой — выберите изображение поменьше');
+      return src;
+    }
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => {
+        try{
+          const w = image.naturalWidth || image.width, h = image.naturalHeight || image.height;
+          if (!w || !h) throw new Error('Не удалось определить размер изображения');
+          const scale = Math.min(1, 1600 / Math.max(w,h));
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(w*scale));
+          canvas.height = Math.max(1, Math.round(h*scale));
+          const ctx = canvas.getContext('2d');
+          if (!ctx) throw new Error('Не удалось обработать изображение');
+          ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+          let data = canvas.toDataURL('image/webp', 0.92);
+          if (data.indexOf('data:image/webp') !== 0) data = canvas.toDataURL('image/png');
+          if (data.length > 1900000 && data.indexOf('data:image/webp') === 0) data = canvas.toDataURL('image/webp', 0.78);
+          canvas.width = 1; canvas.height = 1;
+          if (data.length > 1900000) throw new Error('Изображение слишком большое после обработки');
+          resolve(data);
+        }catch(e){ reject(e); }
+      };
+      image.onerror = () => reject(new Error('Формат изображения не поддерживается'));
+      image.src = src;
+    });
+  });
+}
+function renderFormImages(){
+  const box = $('#fImageList'); box.innerHTML = '';
+  formImages.forEach((src, i) => {
+    const item = document.createElement('div'); item.className = 'image-preview';
+    const img = document.createElement('img'); img.src = src; img.alt = 'Картинка ' + (i+1);
+    const label = document.createElement('div'); label.className = 'small muted'; label.textContent = 'Картинка ' + (i+1);
+    const del = document.createElement('button'); del.className = 'del'; del.type = 'button'; del.title = 'Удалить картинку'; del.textContent = '×';
+    del.onclick = () => { formImages.splice(i,1); renderFormImages(); };
+    item.appendChild(img); item.appendChild(label); item.appendChild(del); box.appendChild(item);
+  });
+}
+function addFormImages(files){
+  const selected = Array.from(files || []);
+  if (!selected.length) return;
+  if (formImages.length + selected.length > 5){
+    $('#fImages').value = '';
+    return toast('К одному вопросу можно добавить не больше 5 картинок');
+  }
+  imageBusy = true;
+  const pick = $('#btnPickImages');
+  pick.disabled = true; pick.textContent = 'Обработка…';
+  $('#btnFormBack').disabled = $('#btnCancelQ').disabled = true;
+  const failed = [];
+  let chain = Promise.resolve();
+  selected.forEach(file => {
+    chain = chain.then(() => imageToDataUrl(file).then(data => {
+      formImages.push(data); renderFormImages();
+    }).catch(e => { failed.push(file.name + ': ' + e.message); }));
+  });
+  chain.then(() => {
+    imageBusy = false;
+    pick.disabled = false; pick.textContent = '+ Добавить картинку';
+    $('#btnFormBack').disabled = $('#btnCancelQ').disabled = false;
+    $('#fImages').value = '';
+    if (failed.length) toast('Не удалось добавить: ' + failed[0]);
+    else toast(selected.length === 1 ? 'Картинка добавлена' : 'Картинки добавлены');
+  });
+}
+
 function renderFormOpts(){
   const box = $('#fOpts'); box.innerHTML = '';
   formOpts.forEach((o, i) => {
     const row = document.createElement('div'); row.className = 'opt-row';
     row.innerHTML = `<button class="chk ${formCorrect.includes(i+1)?'on':''}" title="Правильный">✓</button>
-      <textarea rows="1" placeholder="Вариант ${letters[i]}"></textarea>
+      <textarea rows="1" placeholder="Вариант ${choiceNums[i]}"></textarea>
       <button class="del">✕</button>`;
     row.querySelector('textarea').value = o;
     const [chk, inp, del] = [...row.children];
@@ -823,6 +1234,7 @@ function renderFormOpts(){
   });
 }
 function saveForm(){
+  if (imageBusy) return toast('Подождите, пока изображения обработаются');
   const topic = +$('#fTopic').value;
   const text = $('#fQ').value.trim();
   const opts = formOpts.map(o => o.trim()).filter(Boolean);
@@ -833,26 +1245,49 @@ function saveForm(){
   const correct = formCorrect.filter(n => n <= formOpts.length).sort((a,b)=>a-b);
   // пересчёт индексов после удаления пустых не делаем: запрещаем пустые
   if (formOpts.some(o => !o.trim())) return toast('Заполните или удалите пустые варианты');
-  const topicName = S.topics.find(t => t.id === topic).name;
-  const obj = {topic, topicName, q:text, o:opts, a:correct, n:note};
+  const topicObj = S.topics.find(t => t.id === topic);
+  const topicName = topicObj ? topicObj.name : 'Без раздела';
+  const obj = {topic, topicName, q:text, o:opts, a:correct, n:note, imgs:formImages.slice(), updatedAt:Date.now()};
+  const baseQuestion = formId && !formId.startsWith('u-') ? DB.questions.find(q => q.id === formId) : null;
+  const baseImages = baseQuestion ? normalizeImages(baseQuestion.imgs || baseQuestion.images || baseQuestion.img || baseQuestion.image) : [];
+  const sameAsBaseImages = !!baseQuestion && baseImages.length === formImages.length && baseImages.every((src,i) => src === formImages[i]);
+  if (sameAsBaseImages) delete obj.imgs;
+  const previousQuestion = formId ? S.qs.find(q => q.id === formId) : null;
+  const answerChanged = previousQuestion && (previousQuestion.q !== text ||
+    JSON.stringify(previousQuestion.o) !== JSON.stringify(opts) ||
+    JSON.stringify(previousQuestion.a.slice().sort((a,b)=>a-b)) !== JSON.stringify(correct.slice().sort((a,b)=>a-b)));
+  let savedMessage = formId ? 'Сохранено' : 'Вопрос добавлен';
   if (formId){
-    const base = S.qs.find(q => q.id === formId);
     if (formId.startsWith('u-')){
       const i = S.add.findIndex(a => a.id === formId);
-      S.add[i] = {...obj, id: formId, num: S.add[i].num};
-      LS.set('add', S.add);
+      if (i < 0) return toast('Вопрос не найден');
+      const previous = S.add;
+      S.add = S.add.map((a, index) => index === i ? {...obj, id:formId, num:a.num} : a);
+      if (!LS.set('add', S.add)){ S.add = previous; return toast('Не удалось сохранить: память устройства заполнена'); }
     } else {
-      S.ov[formId] = {...S.ov[formId], ...obj};
-      LS.set('ov', S.ov);
+      const had = Object.prototype.hasOwnProperty.call(S.ov, formId);
+      const previous = S.ov[formId];
+      const patch = {...(S.ov[formId] || {})};
+      if (sameAsBaseImages) delete patch.imgs;
+      S.ov[formId] = {...patch, ...obj};
+      if (!LS.set('ov', S.ov)){
+        if (had) S.ov[formId] = previous; else delete S.ov[formId];
+        return toast('Не удалось сохранить: память устройства заполнена');
+      }
     }
-    toast('Сохранено');
   } else {
     let n = 1, id;
     do { id = 'u-' + n; n++; } while (S.qs.some(q => q.id === id));
-    S.add.push({...obj, id, num: n});
-    LS.set('add', S.add);
-    toast('Вопрос добавлен');
+    const previous = S.add;
+    S.add = [...S.add, {...obj, id, num:n}];
+    if (!LS.set('add', S.add)){ S.add = previous; return toast('Не удалось сохранить: память устройства заполнена'); }
   }
+  if (answerChanged && S.verified.includes(formId)){
+    S.verified = S.verified.filter(id => id !== formId);
+    LS.set('verified', S.verified);
+    savedMessage = 'Сохранено; отметка «Корректен» снята';
+  }
+  toast(savedMessage);
   buildDB(); renderEditor(); homeStats(); renderTopics();
   show('editor');
 }
@@ -864,157 +1299,491 @@ function toggleFav(id){
   $('#btnStarQ').textContent = S.fav.includes(id) ? '★' : '☆';
 }
 
+function updateVerifyButton(id){
+  const b = $('#btnVerifyQ');
+  const yes = S.verified.includes(id);
+  b.textContent = yes ? '✓ Корректен' : '○ Корректен';
+  b.classList.toggle('on', yes);
+  b.setAttribute('aria-pressed', yes ? 'true' : 'false');
+  b.title = yes ? 'Отметка сохранена. Нажмите, чтобы снять её.' : 'Нажмите, если правильный ответ проверен.';
+}
+function toggleVerified(id){
+  const previous = S.verified;
+  const next = previous.includes(id) ? previous.filter(x => x !== id) : [...previous, id];
+  S.verified = next;
+  if (!LS.set('verified', next)){
+    S.verified = previous;
+    return toast('Не удалось сохранить отметку: память устройства заполнена');
+  }
+  updateVerifyButton(id);
+  if (!$('#view-editor').classList.contains('hide')) renderEditor();
+  toast(next.includes(id) ? 'Вопрос отмечен как корректный' : 'Отметка снята');
+}
+
 /* ---------- import / export ---------- */
-function exportJson(){
-  const data = S.qs.map(q => ({id:q.id, topic:q.topic, q:q.q, o:q.o, a:q.a, n:q.n}));
-  const json = JSON.stringify({topics:S.topics, questions:data}, null, 1);
-  const name = '1c-profi-questions-' + new Date().toISOString().slice(0,10) + '.json';
+function downloadJson(data, name){
+  const json = JSON.stringify(data, null, 1);
   if (window.AndroidBridge && AndroidBridge.saveFile){
     const path = AndroidBridge.saveFile(name, json);
     toast(path ? 'Сохранено: ' + path : 'Не удалось сохранить файл');
-    return;
+    return !!path;
   }
   const blob = new Blob([json], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = name;
-  a.click();
+  a.href = url; a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
   toast('Файл сформирован');
+  return true;
+}
+function questionExportSnapshot(){
+  const questions = S.qs.map(q => ({id:q.id,num:q.num,topic:q.topic,q:q.q,o:q.o,a:q.a,n:q.n,imgs:normalizeImages(q.imgs),
+    updatedAt:Number(q.updatedAt)||undefined,verified:S.verified.includes(q.id)}));
+  return {format:'1c-profi-questions',version:3,exportedAt:new Date().toISOString(),topics:S.topics,
+    questions,verified:questions.filter(q=>q.verified).map(q=>q.id)};
+}
+function exportQuestions(){
+  downloadJson(questionExportSnapshot(),'1c-profi-questions-'+new Date().toISOString().slice(0,10)+'.json');
+}
+function progressSnapshot(){
+  S.stats = aggregateStats(S.statsByDevice);
+  return {format:'1c-profi-full-backup',version:2,exportedAt:new Date().toISOString(),deviceId:S.deviceId,
+    topics:S.topics,ov:S.ov,add:S.add,stats:S.stats,statsByDevice:S.statsByDevice,
+    err:S.err,fav:S.fav,tk:S.tk,verified:S.verified,theme:S.theme};
+}
+function exportProgress(){
+  downloadJson(progressSnapshot(),'1c-profi-progress-'+new Date().toISOString().slice(0,10)+'.json');
+}
+function persistUserState(){
+  let ok = true;
+  [['deviceId',S.deviceId],['statsByDevice',S.statsByDevice],['stats',S.stats],['ov',S.ov],['add',S.add],
+   ['err',S.err],['fav',S.fav],['tk',S.tk],['verified',S.verified],['theme',S.theme]].forEach(([k,v]) => {
+    if (!LS.set(k,v)) ok = false;
+  });
+  return ok;
+}
+function mergeIdList(current,incoming,allowed){
+  const a = Array.isArray(current)?current:[], b = Array.isArray(incoming)?incoming:[];
+  return [...new Set(a.concat(b).filter(id=>typeof id==='string'&&(!allowed||allowed.has(id))))];
+}
+function cloneJson(value){ return JSON.parse(JSON.stringify(value===undefined?null:value)); }
+function stableStringify(value){
+  if (Array.isArray(value)) return '['+value.map(stableStringify).join(',')+']';
+  if (value && typeof value==='object') return '{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+stableStringify(value[k])).join(',')+'}';
+  return JSON.stringify(value);
+}
+function exportTime(data){ const t=Date.parse(data&&data.exportedAt||''); return Number.isFinite(t)?t:0; }
+function questionTime(q,data){ return Math.max(0,Number(q&&q.updatedAt)||0,exportTime(data)); }
+function freshUserId(used){ let n=1,id=''; do{id='u-'+n++;}while(used.has(id)); return id; }
+function normalizedQuestion(q,verifiedSet){
+  if(!q||typeof q!=='object'||typeof q.q!=='string'||!Array.isArray(q.o)||!Array.isArray(q.a))return null;
+  const id=typeof q.id==='string'?q.id:'';
+  const images=Object.prototype.hasOwnProperty.call(q,'imgs')?q.imgs:(Object.prototype.hasOwnProperty.call(q,'images')?q.images:(q.img||q.image));
+  return {id,topic:Number(q.topic)||1,q:q.q,o:q.o.map(String),a:q.a.map(Number),n:typeof q.n==='string'?q.n:'',
+    imgs:normalizeImages(images),updatedAt:Number(q.updatedAt)||0,verified:!!q.verified||verifiedSet.has(id),num:Number(q.num)||undefined};
+}
+function normalizeQuestionExport(data){
+  const raw=Array.isArray(data)?data:(data&&Array.isArray(data.questions)?data.questions:null);
+  if(!raw)throw new Error('Файл не содержит выгрузку вопросов');
+  const verified=new Set(data&&!Array.isArray(data)&&Array.isArray(data.verified)?data.verified.filter(x=>typeof x==='string'):[]);
+  const questions=raw.map(q=>normalizedQuestion(q,verified)).filter(Boolean);
+  const used=new Set(questions.map(q=>q.id).filter(Boolean));
+  questions.forEach(q=>{if(!q.id)q.id=freshUserId(used);used.add(q.id);});
+  questions.forEach(q=>{if(verified.has(q.id))q.verified=true;});
+  return {questions,verified:new Set(questions.filter(q=>q.verified).map(q=>q.id)),topics:!Array.isArray(data)&&Array.isArray(data.topics)?data.topics:S.topics,
+    exportedAt:!Array.isArray(data)?data.exportedAt||'':''};
+}
+function sameQuestionContent(a,b){
+  return ['topic','q','o','a','n','imgs'].every(k=>stableStringify(a[k]|| (k==='imgs'?[]:''))===stableStringify(b[k]|| (k==='imgs'?[]:'')));
+}
+function mergeQuestionExports(fileA,fileB){
+  const A=normalizeQuestionExport(fileA),B=normalizeQuestionExport(fileB);
+  const map=new Map(A.questions.map(q=>[q.id,cloneJson(q)]));
+  const used=new Set([...A.questions,...B.questions].map(q=>q.id));
+  const remap={}, remapped=[]; let conflicts=0;
+  B.questions.forEach(raw=>{
+    let q=cloneJson(raw), id=q.id, old=map.get(id);
+    if(old&&id.startsWith('u-')&&!sameQuestionContent(old,q)){
+      const newId=freshUserId(used);used.add(newId);remap[id]=newId;q.id=newId;
+      if(q.num===undefined)q.num=Number(newId.slice(2))+1; remapped.push(q); conflicts++; return;
+    }
+    if(!old){map.set(id,q);return;}
+    const same=sameQuestionContent(old,q);
+    if(!same)conflicts++;
+    const winner=questionTime(q,fileB)>questionTime(old,fileA)?q:old;
+    map.set(id,{...cloneJson(winner),verified:!!old.verified||!!q.verified});
+  });
+  remapped.forEach(q=>map.set(q.id,q));
+  const markedA=A.verified, markedB=new Set([...B.verified].map(id=>remap[id]||id));
+  const questions=[...map.values()].map(q=>({...q,verified:!!q.verified||markedA.has(q.id)||markedB.has(q.id)}));
+  const marked=questions.filter(q=>q.verified).map(q=>q.id);
+  const data={format:'1c-profi-questions',version:3,exportedAt:new Date().toISOString(),topics:A.topics||B.topics||S.topics,
+    questions,verified:marked};
+  const overlap=[...markedA].filter(id=>B.verified.has(id)&&!remap[id]).length;
+  const meta={countA:A.questions.length,countB:B.questions.length,countMerged:questions.length,markedA:markedA.size,markedB:B.verified.size,
+    overlap,markedMerged:marked.length,conflicts,remapped:remapped.length,onlyA:[...markedA].filter(id=>!markedB.has(id)),
+    onlyB:[...markedB].filter(id=>!markedA.has(id))};
+  return {data,meta};
+}
+function cleanAddedQuestions(raw){
+  if(!Array.isArray(raw))return [];
+  const seen=new Set(),out=[];
+  raw.forEach(q=>{
+    if(!q||typeof q.id!=='string'||!/^u-\d+$/.test(q.id)||seen.has(q.id)||typeof q.q!=='string'||!q.q.trim()||!Array.isArray(q.o)||!Array.isArray(q.a))return;
+    const opts=q.o.map(String),answers=q.a.map(Number).filter(n=>Number.isInteger(n)&&n>=1&&n<=opts.length);
+    if(opts.length<2||!answers.length)return;
+    const topic=Number(q.topic)||1,topicObj=S.topics.find(t=>t.id===topic)||S.topics[0];
+    seen.add(q.id);out.push({...q,id:q.id,topic:topicObj.id,topicName:topicObj.name,q:q.q,o:opts,a:answers,n:typeof q.n==='string'?q.n:'',
+      imgs:normalizeImages(Object.prototype.hasOwnProperty.call(q,'imgs')?q.imgs:(q.images||q.img||q.image)),num:Number(q.num)||Number(q.id.slice(2))+1,
+      updatedAt:Number(q.updatedAt)||0});
+  });
+  return out;
+}
+function normalizeProgressArchive(data){
+  const isBackup=data&&typeof data.format==='string'&&data.format.indexOf('full-backup')>=0;
+  if(!data||typeof data!=='object'||Array.isArray(data)||(!isBackup&&(!data.stats||typeof data.stats!=='object')))throw new Error('Файл не является архивом прогресса');
+  let ledger=cleanStatsLedger(data.statsByDevice);
+  if(!Object.keys(ledger).length){const legacy=cleanStatsMap(data.stats);if(Object.keys(legacy).length)ledger[typeof data.deviceId==='string'&&data.deviceId?data.deviceId:'legacy']=legacy;}
+  return {format:'1c-profi-full-backup',version:Number(data.version)||1,exportedAt:data.exportedAt||'',deviceId:typeof data.deviceId==='string'?data.deviceId:'',
+    ov:data.ov&&typeof data.ov==='object'&&!Array.isArray(data.ov)?cloneJson(data.ov):{},add:cleanAddedQuestions(data.add),statsByDevice:ledger,
+    stats:aggregateStats(ledger),err:Array.isArray(data.err)?data.err.filter(x=>typeof x==='string'):[],fav:Array.isArray(data.fav)?data.fav.filter(x=>typeof x==='string'):[],
+    tk:data.tk&&typeof data.tk==='object'&&!Array.isArray(data.tk)?cloneJson(data.tk):{},verified:Array.isArray(data.verified)?data.verified.filter(x=>typeof x==='string'):[],
+    theme:data.theme==='dark'?'dark':(data.theme==='light'||data.theme===''?'light':'')};
+}
+function remapLedger(ledger,remap){
+  const out=cleanStatsLedger(ledger);
+  Object.keys(out).forEach(device=>Object.keys(remap).forEach(oldId=>{
+    const newId=remap[oldId],v=out[device][oldId]; if(!v)return; delete out[device][oldId];
+    const current=out[device][newId]||[0,0];out[device][newId]=[Math.max(current[0],v[0]),Math.max(current[1],v[1])];
+  }));
+  return out;
+}
+function mergeProgressArchives(fileA,fileB){
+  const A=normalizeProgressArchive(fileA),B=normalizeProgressArchive(fileB);
+  const addMap=new Map(A.add.map(q=>[q.id,cloneJson(q)]));
+  const used=new Set(DB.questions.map(q=>q.id).concat(A.add.map(q=>q.id),B.add.map(q=>q.id)));
+  const remap={},remapped=[];let addedConflicts=0;
+  B.add.forEach(raw=>{
+    const q=cloneJson(raw),old=addMap.get(q.id);
+    if(!old){addMap.set(q.id,q);return;}
+    if(sameQuestionContent(old,q)){
+      if(Number(q.updatedAt)>Number(old.updatedAt))addMap.set(q.id,q);
+      return;
+    }
+    const id=freshUserId(used);used.add(id);remap[q.id]=id;q.id=id;if(!q.num)q.num=Number(id.slice(2))+1;
+    addMap.set(id,q);remapped.push(q);addedConflicts++;
+  });
+  const ov={},overrideConflicts=[];
+  const ovIds=new Set(Object.keys(A.ov).concat(Object.keys(B.ov)));
+  ovIds.forEach(id=>{
+    const left=A.ov[id],right=B.ov[id];
+    if(!left){ov[id]=cloneJson(right);return;}if(!right){ov[id]=cloneJson(left);return;}
+    const l={...left},r={...right};delete l.updatedAt;delete r.updatedAt;
+    if(stableStringify(l)===stableStringify(r)){ov[id]=Number(right.updatedAt)>Number(left.updatedAt)?cloneJson(right):cloneJson(left);return;}
+    overrideConflicts.push(id);
+    ov[id]=Math.max(Number(right.updatedAt)||0,exportTime(fileB))>Math.max(Number(left.updatedAt)||0,exportTime(fileA))?cloneJson(right):cloneJson(left);
+  });
+  const statsByDevice=mergeStatsLedgers(A.statsByDevice,remapLedger(B.statsByDevice,remap));
+  const add=[...addMap.values()].sort((x,y)=>x.id.localeCompare(y.id,undefined,{numeric:true}));
+  const allowed=new Set(DB.questions.map(q=>q.id).concat(add.map(q=>q.id)));
+  const remapList=list=>list.map(id=>remap[id]||id);
+  const err=mergeIdList(A.err,remapList(B.err),allowed),fav=mergeIdList(A.fav,remapList(B.fav),allowed),verified=mergeIdList(A.verified,remapList(B.verified),allowed);
+  const tk={...A.tk};Object.keys(B.tk).forEach(id=>{const v=B.tk[id],old=tk[id];if(!old||(Number(v.ts)||0)>(Number(old.ts)||0)||((Number(v.ts)||0)===(Number(old.ts)||0)&&(Number(v.ok)||0)>(Number(old.ok)||0)))tk[id]=cloneJson(v);});
+  const theme=exportTime(fileB)>exportTime(fileA)?B.theme:A.theme;
+  const data={format:'1c-profi-full-backup',version:2,exportedAt:new Date().toISOString(),deviceId:A.deviceId||B.deviceId||S.deviceId,
+    deviceIds:Object.keys(statsByDevice),topics:S.topics,ov,add,statsByDevice,stats:aggregateStats(statsByDevice),err,fav,tk,verified,theme};
+  return {data,meta:{devices:Object.keys(statsByDevice).length,remapped:remapped.length,addedConflicts,overrideConflicts,
+    legacy:!!(statsByDevice.legacy),left:A,right:B}};
+}
+function progressMetrics(data){
+  const n=normalizeProgressArchive(data),stats=aggregateStats(n.statsByDevice),ids=Object.keys(stats);
+  return {studied:ids.filter(id=>stats[id][0]>0).length,attempts:ids.reduce((s,id)=>s+stats[id][0],0),correct:ids.reduce((s,id)=>s+stats[id][1],0),
+    errors:n.err.length,fav:n.fav.length,verified:n.verified.length,tickets:Object.keys(n.tk).length,edits:Object.keys(n.ov).length,added:n.add.length};
+}
+function questionTitle(id,backups=[]){
+  const q=DB.questions.find(x=>x.id===id)||S.qs.find(x=>x.id===id)||backups.flatMap(x=>x?([...(Array.isArray(x.add)?x.add:[]),...(Array.isArray(x.questions)?x.questions:[])]):[]).find(x=>x.id===id)||null;
+  return q?q.q:'Дополнительный вопрос';
+}
+function renderProgressComparison(a,b,merged,meta){
+  const A=progressMetrics(a),B=progressMetrics(b),M=progressMetrics(merged),na=normalizeProgressArchive(a),nb=normalizeProgressArchive(b);
+  const statsA=aggregateStats(na.statsByDevice),statsB=aggregateStats(nb.statsByDevice);
+  const setsA={err:new Set(na.err),fav:new Set(na.fav),verified:new Set(na.verified)},setsB={err:new Set(nb.err),fav:new Set(nb.fav),verified:new Set(nb.verified)};
+  const ids=[...new Set(Object.keys(statsA).concat(Object.keys(statsB),na.err,nb.err,na.fav,nb.fav,na.verified,nb.verified))];
+  const changed=id=>stableStringify(statsA[id]||[0,0])!==stableStringify(statsB[id]||[0,0])||['err','fav','verified'].some(k=>setsA[k].has(id)!==setsB[k].has(id));
+  const diff=ids.filter(changed).slice(0,12);
+  const flags=(id,sets)=>['err','fav','verified'].filter(k=>sets[k].has(id)).map(k=>k==='err'?'ошибка':k==='fav'?'закладка':'✓ корректен').join(', ')||'—';
+  const result=$('#progressCompareResult');
+  result.innerHTML=`<h4>Сводка объединения</h4><div class="compare-metrics">
+    <div class="compare-metric"><b>${A.studied} / ${B.studied} → ${M.studied}</b><small>изучено на A / B / вместе</small></div>
+    <div class="compare-metric"><b>${A.attempts} + ${B.attempts} → ${M.attempts}</b><small>попытки · копии устройств не задваиваются</small></div>
+    <div class="compare-metric"><b>${A.errors} + ${B.errors} → ${M.errors}</b><small>вопросов в ошибках</small></div>
+    <div class="compare-metric"><b>${A.verified} + ${B.verified} → ${M.verified}</b><small>отметки «Корректен»</small></div></div>
+    <p class="compare-note">Объединено устройств: ${meta.devices}. Закладки: ${A.fav} + ${B.fav} → ${M.fav}; билеты: ${M.tickets}; правки: ${A.edits} + ${B.edits} → ${M.edits}; новых вопросов: ${A.added} + ${B.added} → ${M.added}. ${meta.remapped?`Коллизии новых вопросов безопасно переименованы: ${meta.remapped}. `:''}${meta.overrideConflicts.length?`Правки с конфликтом: ${meta.overrideConflicts.length} (выбрана более свежая версия).`:''}${meta.legacy?' Один архив старого формата без истории устройства объединён консервативно по максимуму счётчиков.':''}</p>
+    ${diff.length?`<div class="diff-list"><h4>Различия по вопросам</h4>${diff.map(id=>`<div class="diff-row"><code>${esc(id)}</code><span>${esc(questionTitle(id,[na,nb]))}<small>A: ${(statsA[id]||[0,0])[0]} попыт., ${flags(id,setsA)} · B: ${(statsB[id]||[0,0])[0]} попыт., ${flags(id,setsB)}</small></span><b>Δ</b></div>`).join('')}</div>`:''}`;
+  result.classList.remove('hide');$('#progressMergeActions').classList.remove('hide');
+}
+function renderQuestionComparison(a,b,merged,meta){
+  const result=$('#questionsCompareResult');
+  const onlyA=meta.onlyA.slice(0,8),onlyB=meta.onlyB.slice(0,8);
+  const list=(arr,label)=>arr.length?`<div class="compare-note"><b>${label}:</b> ${arr.map(id=>`<code>${esc(id)}</code> ${esc(questionTitle(id,[a,b,merged]))}`).join(' · ')}</div>`:'';
+  result.innerHTML=`<h4>Сводка объединения</h4><div class="compare-metrics">
+    <div class="compare-metric"><b>${meta.markedA}</b><small>отмечено в выгрузке A</small></div>
+    <div class="compare-metric"><b>${meta.markedB}</b><small>отмечено в выгрузке B</small></div>
+    <div class="compare-metric"><b>${meta.overlap}</b><small>совпадающие отметки</small></div>
+    <div class="compare-metric"><b>${meta.markedMerged}</b><small>отметок после объединения</small></div></div>
+    <p class="compare-note">В базе объединения ${meta.countMerged} вопросов; ${meta.conflicts} конфликтов содержания разрешены по более свежей отметке/выгрузке.${meta.remapped?` Коллизий новых вопросов переименовано: ${meta.remapped}.`:''}</p>
+    ${list(onlyA,'Отмечены только в A')}${list(onlyB,'Отмечены только в B')}`;
+  result.classList.remove('hide');$('#questionsMergeActions').classList.remove('hide');
+}
+function readJsonFile(file){
+  return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>{try{resolve(JSON.parse(String(r.result||'')));}catch(e){reject(new Error('Файл «'+file.name+'» не является корректным JSON'));}};r.onerror=()=>reject(new Error('Не удалось прочитать '+file.name));r.readAsText(file);});
+}
+function snapshotForQuestionMerge(){ const d=questionExportSnapshot();d.exportedAt='1970-01-01T00:00:00.000Z';return d; }
+function importQuestionExport(data){
+  const local=snapshotForQuestionMerge(),merged=mergeQuestionExports(local,data);
+  const arr=merged.data.questions;
+  return applyQuestionRecords(arr,merged.data.verified);
+}
+function applyQuestionRecords(arr,verified){
+  let added=0,changed=0;
+  const used=new Set(DB.questions.map(q=>q.id).concat(S.add.map(q=>q.id)));
+  const flaggedQuestionIds=[],verifiedQuestionIds=[];
+  arr.forEach(q=>{
+    if(!q||typeof q.q!=='string'||!Array.isArray(q.o)||!Array.isArray(q.a))return;
+    const topic=Number(q.topic)||1,topicObj=S.topics.find(t=>t.id===topic)||S.topics[0];
+    const obj={topic:topicObj.id,topicName:topicObj.name,q:q.q,o:q.o.map(String),a:q.a.map(Number),n:q.n||'',updatedAt:Number(q.updatedAt)||undefined};
+    const imageField=Object.prototype.hasOwnProperty.call(q,'imgs')?q.imgs:(Object.prototype.hasOwnProperty.call(q,'images')?q.images:(q.img||q.image));
+    if(imageField!==undefined)obj.imgs=normalizeImages(imageField);
+    const id=typeof q.id==='string'?q.id:'',existing=S.add.find(x=>x.id===id);
+    let savedId=id;
+    if(id&&used.has(id)){
+      if(id.startsWith('u-')&&existing){
+        S.add[S.add.indexOf(existing)]={...existing,...obj,id,num:existing.num,updatedAt:obj.updatedAt||existing.updatedAt};changed++;
+      }else if(DB.questions.some(x=>x.id===id)){applyImportedBaseQuestion(id,obj,imageField);changed++;}
+    }else{
+      let nid=id.startsWith('u-')?id:freshUserId(used);if(used.has(nid))nid=freshUserId(used);used.add(nid);
+      S.add.push({...obj,id:nid,num:Number(q.num)||Number(nid.slice(2))+1});savedId=nid;added++;
+    }
+    if(typeof q.verified==='boolean'){flaggedQuestionIds.push(savedId);if(q.verified)verifiedQuestionIds.push(savedId);}
+  });
+  const allowed=new Set(DB.questions.map(q=>q.id).concat(S.add.map(q=>q.id)));
+  if(Array.isArray(verified))S.verified=mergeIdList(S.verified,verified,allowed);
+  if(flaggedQuestionIds.length){const set=new Set(flaggedQuestionIds);S.verified=mergeIdList(S.verified.filter(id=>!set.has(id)),verifiedQuestionIds,allowed);}
+  buildDB();
+  const ok=LS.set('add',S.add)&&LS.set('ov',S.ov)&&LS.set('verified',S.verified);
+  return {added,changed,ok};
+}
+function compareFiles(kind){
+  const aInput=$(kind==='progress'?'#progressFileA':'#questionsFileA'),bInput=$(kind==='progress'?'#progressFileB':'#questionsFileB');
+  if(!aInput.files[0]||!bInput.files[0])return toast('Выберите оба JSON-файла');
+  Promise.all([readJsonFile(aInput.files[0]),readJsonFile(bInput.files[0])]).then(([a,b])=>{
+    if(kind==='progress'){
+      const merged=mergeProgressArchives(a,b);COMPARISON.progress={a,b,...merged};renderProgressComparison(a,b,merged.data,merged.meta);
+    }else{
+      const merged=mergeQuestionExports(a,b);COMPARISON.questions={a,b,...merged};renderQuestionComparison(a,b,merged.data,merged.meta);
+    }
+    toast('Сравнение готово');
+  }).catch(e=>toast(e.message||'Не удалось сравнить файлы'));
+}
+function applyProgressSnapshot(data){
+  const n=normalizeProgressArchive(data),baseIds=new Set(DB.questions.map(q=>q.id));
+  const overrides={};
+  Object.keys(n.ov).forEach(id=>{
+    if(!baseIds.has(id))return;const p=n.ov[id];if(!p||typeof p!=='object')return;
+    if(p.del){overrides[id]={del:1,updatedAt:Number(p.updatedAt)||0};return;}
+    const clean={},topic=Number(p.topic),base=DB.questions.find(q=>q.id===id);
+    if(S.topics.some(t=>t.id===topic))clean.topic=topic;
+    if(typeof p.topicName==='string')clean.topicName=p.topicName;
+    if(typeof p.q==='string')clean.q=p.q;
+    if(Array.isArray(p.o))clean.o=p.o.map(String);
+    if(Array.isArray(p.a)){const opts=clean.o||(base&&base.o)||[];clean.a=p.a.map(Number).filter(x=>Number.isInteger(x)&&x>=1&&x<=opts.length);}
+    if(typeof p.n==='string')clean.n=p.n;
+    const imgs=Object.prototype.hasOwnProperty.call(p,'imgs')?p.imgs:(Object.prototype.hasOwnProperty.call(p,'images')?p.images:(p.img||p.image));
+    if(imgs!==undefined)clean.imgs=normalizeImages(imgs);
+    if(Number(p.updatedAt)>0)clean.updatedAt=Number(p.updatedAt);
+    if(Object.keys(clean).length)overrides[id]=clean;
+  });
+  S.ov=overrides;S.add=cleanAddedQuestions(n.add);S.statsByDevice=cleanStatsLedger(n.statsByDevice);S.stats=aggregateStats(S.statsByDevice);
+  const allowed=new Set(DB.questions.map(q=>q.id).concat(S.add.map(q=>q.id)));
+  S.err=mergeIdList([],n.err,allowed);S.fav=mergeIdList([],n.fav,allowed);S.verified=mergeIdList([],n.verified,allowed);
+  S.tk=n.tk;S.theme=n.theme||S.theme;document.documentElement.dataset.theme=S.theme;
+  buildDB();return persistUserState();
+}
+function importFullBackup(data){
+  const merged=mergeProgressArchives(progressSnapshot(),data);
+  const ok=applyProgressSnapshot(merged.data);
+  return ok;
+}
+const COMPARISON={progress:null,questions:null};
+function clearComparison(kind){
+  if(kind==='progress'){$('#progressCompareResult').classList.add('hide');$('#progressMergeActions').classList.add('hide');COMPARISON.progress=null;}
+  else{$('#questionsCompareResult').classList.add('hide');$('#questionsMergeActions').classList.add('hide');COMPARISON.questions=null;}
+}
+
+function sameArray(a,b){
+  return Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((v,i) => v === b[i]);
+}
+function applyImportedBaseQuestion(id, obj, imageField){
+  const base = DB.questions.find(q => q.id === id);
+  if (!base) return;
+  const patch = {...(S.ov[id] || {})}; delete patch.del;
+  if (obj.topic === base.topic){ delete patch.topic; delete patch.topicName; }
+  else { patch.topic = obj.topic; patch.topicName = obj.topicName; }
+  if (obj.q === base.q) delete patch.q; else patch.q = obj.q;
+  if (sameArray(obj.o, base.o)) delete patch.o; else patch.o = obj.o;
+  if (sameArray(obj.a, base.a)) delete patch.a; else patch.a = obj.a;
+  if ((obj.n || '') === (base.n || '')) delete patch.n; else patch.n = obj.n;
+  if (imageField !== undefined){
+    const baseImages = normalizeImages(base.imgs || base.images || base.img || base.image);
+    const incomingImages = normalizeImages(imageField);
+    if (sameArray(incomingImages, baseImages)) delete patch.imgs; else patch.imgs = incomingImages;
+  }
+  if (Number(obj.updatedAt)>0) patch.updatedAt=Number(obj.updatedAt);
+  if (!Object.keys(patch).some(k=>k!=='updatedAt')) delete patch.updatedAt;
+  if (Object.keys(patch).length) S.ov[id] = patch; else delete S.ov[id];
 }
 function importJson(txt){
   try{
-    const data = JSON.parse(txt);
-    const arr = Array.isArray(data) ? data : data.questions;
-    if (!Array.isArray(arr)) throw 0;
-    let added = 0, changed = 0;
-    arr.forEach(q => {
-      if (!q.q || !Array.isArray(q.o) || !Array.isArray(q.a)) return;
-      const topic = +q.topic || 1;
-      const tName = (S.topics.find(t => t.id === topic) || S.topics[0]).name;
-      const obj = {topic, topicName:tName, q:q.q, o:q.o.map(String), a:q.a.map(Number), n:q.n||''};
-      const id = q.id || '';
-      if (id && S.qs.some(x => x.id === id)){
-        if (id.startsWith('u-')){
-          const i = S.add.findIndex(a => a.id === id);
-          if (i >= 0){ S.add[i] = {...S.add[i], ...obj}; changed++; }
-        } else { S.ov[id] = {...S.ov[id], ...obj}; changed++; }
-      } else {
-        let n = 1, nid;
-        do { nid = 'u-' + n; n++; } while (S.qs.some(x => x.id === nid));
-        S.add.push({...obj, id:nid, num:n}); added++;
-      }
-    });
-    LS.set('add', S.add); LS.set('ov', S.ov);
-    buildDB(); homeStats(); renderTopics(); renderEditor();
-    toast(`Импорт: добавлено ${added}, обновлено ${changed}`);
-  }catch(e){ toast('Не удалось разобрать JSON'); }
+    const data=JSON.parse(txt);
+    if(data&&data.format==='1c-profi-full-backup'){
+      const saved=importFullBackup(data);homeStats();renderTopics();renderEditor();
+      toast(saved?'Прогресс объединён':'Прогресс объединён, но не всё сохранилось — проверьте память устройства');return;
+    }
+    if(data&&!Array.isArray(data)&&data.format==='1c-profi-questions'){
+      const result=importQuestionExport(data);homeStats();renderTopics();renderEditor();
+      toast(`Вопросы объединены: добавлено ${result.added}, обновлено ${result.changed}`+(result.ok?'':' — не всё удалось сохранить'));return;
+    }
+    const arr=Array.isArray(data)?data:(data&&Array.isArray(data.questions)?data.questions:null);
+    if(!Array.isArray(arr))throw new Error('Некорректный формат');
+    const result=applyQuestionRecords(arr,data&&!Array.isArray(data)?data.verified:undefined);
+    homeStats();renderTopics();renderEditor();
+    toast(`Импорт: добавлено ${result.added}, обновлено ${result.changed}`+(result.ok?'':' — не всё удалось сохранить'));
+  }catch(e){toast(e.message||'Не удалось импортировать JSON');}
 }
 
 /* ---------- init ---------- */
+function navigateTo(nav){
+  if(nav==='home'){show('home');homeStats();renderTopics();}
+  else if(nav==='quick')startQuiz({mode:'quick'});
+  else if(nav==='ordered')startQuiz({mode:'ordered'});
+  else if(nav==='exam')startQuiz({mode:'exam'});
+  else if(nav==='errors')startQuiz({mode:'errors'});
+  else if(nav==='fav')startQuiz({mode:'fav'});
+  else if(nav==='search')searchOpen();
+  else if(nav==='tickets')ticketsOpen();
+  else if(nav==='editor')editorOpen();
+  else if(nav==='io')$('#mIO').classList.add('open');
+  else if(nav==='about')$('#mAbout').classList.add('open');
+}
 function init(){
-  if (S.theme) document.documentElement.dataset.theme = S.theme;
-  buildDB(); homeStats(); renderTopics();
+  document.documentElement.dataset.theme=S.theme;
+  buildDB();fillSearchTopics();homeStats();renderTopics();
 
-  $('#btnTickets').onclick = () => ticketsOpen();
-  $('#btnTicketsBack').onclick = () => { show('home'); homeStats(); renderTopics(); };
-  $('#btnRandomTicket').onclick = () => {
-    TK.list.length || (TK.list = buildTickets());
-    if (!TK.list.length) return toast('Билеты не сформированы');
-    startTicket(1 + Math.floor(Math.random()*TK.list.length));
+  $$('[data-nav]').forEach(b=>b.onclick=()=>navigateTo(b.dataset.nav));
+  $('#btnTicketsBack').onclick=()=>{show('home');homeStats();renderTopics();};
+  $('#btnRandomTicket').onclick=()=>{
+    TK.list.length||(TK.list=buildTickets());
+    if(!TK.list.length)return toast('Билеты не сформированы');
+    startTicket(1+Math.floor(Math.random()*TK.list.length));
   };
-  $('#btnTicketFilter').onclick = () => {
-    TK.onlyNew = !TK.onlyNew;
-    $('#btnTicketFilter').textContent = TK.onlyNew ? 'Показать все' : 'Только непройденные';
-    $('#btnTicketFilter').className = TK.onlyNew ? 'btn sm' : 'btn ghost sm';
-    renderTickets();
+  $('#btnTicketFilter').onclick=()=>{
+    TK.onlyNew=!TK.onlyNew;$('#btnTicketFilter').textContent=TK.onlyNew?'Показать все':'Только непройденные';
+    $('#btnTicketFilter').className=TK.onlyNew?'btn sm':'btn ghost sm';renderTickets();
   };
-  $('#btnExam').onclick = () => startQuiz({mode:'exam'});
-  $('#btnQuick').onclick = () => startQuiz({mode:'quick'});
-  $('#btnErrors').onclick = () => startQuiz({mode:'errors'});
-  $('#btnFav').onclick = () => startQuiz({mode:'fav'});
-  $('#btnEditor').onclick = editorOpen;
-  $('#btnRetry').onclick = () => {
-    if (Q.mode === 'ticket') return startTicket(Q.ticket);
-    startQuiz({mode: Q.mode === 'exam' ? 'exam' : 'quick'});
+  $('#btnExam').onclick=()=>startQuiz({mode:'exam'});
+  $('#btnQuick').onclick=()=>startQuiz({mode:'quick'});
+  $('#btnTickets').onclick=()=>ticketsOpen();
+  $('#btnOrdered').onclick=()=>startQuiz({mode:'ordered'});
+  $('#btnErrors').onclick=()=>startQuiz({mode:'errors'});
+  $('#btnFav').onclick=()=>startQuiz({mode:'fav'});
+  $('#btnEditor').onclick=editorOpen;
+  $('#btnRetry').onclick=()=>{
+    if(Q.mode==='ticket')return startTicket(Q.ticket);
+    if(Q.mode==='exam')return startQuiz({mode:'exam'});
+    if(Q.studyMode==='ordered')return startQuiz({mode:'ordered'});
+    if(Q.studyMode==='topic')return startQuiz({mode:'topic',topic:Q.topic});
+    if(Q.studyMode==='custom')return startQuiz({ids:Q.list.map(q=>q.id)});
+    startQuiz({mode:Q.studyMode==='errors'||Q.studyMode==='fav'?Q.studyMode:'quick'});
   };
-  $('#btnHome').onclick = () => {
-    if (Q.mode === 'ticket'){ ticketsOpen(); return; }
-    show('home'); homeStats(); renderTopics();
-  };
-  $('#btnQuit').onclick = () => {
-    if (!confirm('Прервать тренировку?')) return;
-    stopTimer();
-    if (Q.mode === 'ticket'){ ticketsOpen(); } else { show('home'); homeStats(); }
-  };
-  $('#btnQNext').onclick = nextQ;
-  $('#btnQBack').onclick = prevQ;
-  $('#btnStarQ').onclick = () => { if (Q.list[Q.i]) toggleFav(Q.list[Q.i].id); };
-  $('#btnEditBack').onclick = () => { show('home'); homeStats(); renderTopics(); };
-  $('#btnAddQ').onclick = () => openForm(null);
-  $('#btnAddOpt').onclick = () => { if (formOpts.length < 8){ formOpts.push(''); renderFormOpts(); } };
-  $('#btnFormBack').onclick = $('#btnCancelQ').onclick = () => show('editor');
-  $('#btnSaveQ').onclick = saveForm;
+  $('#btnHome').onclick=()=>{if(Q.mode==='ticket'){ticketsOpen();return;}show('home');homeStats();renderTopics();};
+  $('#btnQuit').onclick=()=>{if(!confirm('Прервать тренировку?'))return;stopTimer();if(Q.mode==='ticket')ticketsOpen();else{show('home');homeStats();}};
+  $('#btnQNext').onclick=nextQ;$('#btnQBack').onclick=prevQ;
+  $('#btnStarQ').onclick=()=>{if(Q.list[Q.i])toggleFav(Q.list[Q.i].id);};
+  $('#btnVerifyQ').onclick=()=>{if(Q.list[Q.i])toggleVerified(Q.list[Q.i].id);};
+  $('#btnEditBack').onclick=()=>{show('home');homeStats();renderTopics();};
+  $('#btnAddQ').onclick=()=>openForm(null);
+  $('#btnAddOpt').onclick=()=>{if(formOpts.length<8){formOpts.push('');renderFormOpts();}};
+  $('#btnPickImages').onclick=()=>$('#fImages').click();$('#fImages').onchange=e=>addFormImages(e.target.files);
+  $('#btnFormBack').onclick=$('#btnCancelQ').onclick=()=>{if(!imageBusy)show('editor');};$('#btnSaveQ').onclick=saveForm;
 
-  $('#btnTheme').onclick = () => {
-    const cur = document.documentElement.dataset.theme === 'dark' ? '' : 'dark';
-    document.documentElement.dataset.theme = cur; S.theme = cur; LS.set('theme', cur);
+  $('#btnTheme').onclick=()=>{
+    S.theme=S.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=S.theme;LS.set('theme',S.theme);
+    $('#btnTheme').title=S.theme==='dark'?'Переключить на светлую тему':'Переключить на тёмную тему';
   };
-  const menu = $('#mMenu');
-  $('#btnMenu').onclick = () => menu.classList.add('open');
-  $('#mMenuClose').onclick = () => menu.classList.remove('open');
-  menu.onclick = e => { if (e.target === menu) menu.classList.remove('open'); };
-  $$('#mMenu [data-go]').forEach(b => b.onclick = () => {
-    menu.classList.remove('open');
-    const go = b.dataset.go;
-    if (go === 'exam' || go === 'quick') { show('home'); startQuiz({mode:go}); }
-    else if (go === 'errors'){ show('home'); startQuiz({mode:'errors'}); }
-    else if (go === 'fav'){ show('home'); startQuiz({mode:'fav'}); }
-    else if (go === 'tickets') ticketsOpen();
-    else if (go === 'editor') editorOpen();
-    else if (go === 'io') $('#mIO').classList.add('open');
-    else if (go === 'about') $('#mAbout').classList.add('open');
+  const menu=$('#mMenu');$('#btnMenu').onclick=()=>menu.classList.add('open');
+  $('#mMenuClose').onclick=()=>menu.classList.remove('open');menu.onclick=e=>{if(e.target===menu)menu.classList.remove('open');};
+  $$('#mMenu [data-go]').forEach(b=>b.onclick=()=>{menu.classList.remove('open');navigateTo(b.dataset.go);});
+
+  $('#btnIO').onclick=$('#btnTopIO').onclick=()=>$('#mIO').classList.add('open');
+  $('#mIOClose').onclick=()=>$('#mIO').classList.remove('open');
+  $('#mIO').onclick=e=>{if(e.target===$('#mIO'))$('#mIO').classList.remove('open');};
+  $('#btnExport').onclick=exportQuestions;$('#btnExportProgress').onclick=exportProgress;
+  $('#btnImportPick').onclick=()=>$('#fileInput').click();
+  $('#fileInput').onchange=e=>{const f=e.target.files[0];if(!f)return;readJsonFile(f).then(data=>importJson(JSON.stringify(data))).catch(err=>toast(err.message));e.target.value='';};
+  $('#btnImportText').onclick=()=>importJson($('#ioText').value);
+  $('#btnRestoreBase').onclick=()=>{
+    if(!confirm('Отменить все изменения и удаления вопросов, вернуть исходные 961 вопрос?'))return;
+    S.ov={};S.add=[];LS.set('ov',{});LS.set('add',[]);buildDB();homeStats();renderTopics();renderEditor();toast('Исходные вопросы восстановлены');
+  };
+
+  const about=$('#mAbout');$('#btnAbout').onclick=()=>about.classList.add('open');$('#mAboutClose').onclick=()=>about.classList.remove('open');
+  about.onclick=e=>{if(e.target===about)about.classList.remove('open');};
+  $('#btnReset').onclick=()=>{
+    if(!confirm('Сбросить статистику, ошибки, закладки, результаты билетов и отметки «Корректен»?'))return;
+    S.statsByDevice={[S.deviceId]:{}};S.stats={};S.err=[];S.fav=[];S.tk={};S.verified=[];persistUserState();
+    homeStats();renderTopics();renderTickets();toast('Прогресс сброшен');
+  };
+
+  $('#headerSearch').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();searchOpen($('#headerSearch').value);}};
+  $('#searchQuery').oninput=renderSearch;$('#searchTopic').onchange=renderSearch;
+  $('#btnSearchClear').onclick=()=>{$('#searchQuery').value='';renderSearch();$('#searchQuery').focus();};
+  $('#btnSearchReset').onclick=()=>{$('#searchQuery').value='';$('#searchTopic').value='0';renderSearch();};
+  $('#btnSearchMore').onclick=()=>{Search.limit+=40;renderSearch();};
+
+  [['progressFileA','progressFileAName','progress'],['progressFileB','progressFileBName','progress'],
+   ['questionsFileA','questionsFileAName','questions'],['questionsFileB','questionsFileBName','questions']].forEach(([inputId,labelId,kind])=>{
+    $('#'+inputId).onchange=e=>{
+      const f=e.target.files[0];$('#'+labelId).textContent=f?f.name:'Выбрать JSON-файл';clearComparison(kind);
+    };
   });
-
-  $('#btnIO').onclick = () => $('#mIO').classList.add('open');
-  $('#mIOClose').onclick = () => $('#mIO').classList.remove('open');
-  $('#btnExport').onclick = exportJson;
-  $('#btnImportPick').onclick = () => $('#fileInput').click();
-  $('#fileInput').onchange = e => {
-    const f = e.target.files[0]; if (!f) return;
-    const r = new FileReader(); r.onload = () => importJson(r.result); r.readAsText(f);
+  $('#btnCompareProgress').onclick=()=>compareFiles('progress');$('#btnCompareQuestions').onclick=()=>compareFiles('questions');
+  $('#btnDownloadProgressMerge').onclick=()=>{if(COMPARISON.progress)downloadJson(COMPARISON.progress.data,'1c-profi-progress-merged-'+new Date().toISOString().slice(0,10)+'.json');};
+  $('#btnApplyProgressMerge').onclick=()=>{
+    if(!COMPARISON.progress)return;const ok=importFullBackup(COMPARISON.progress.data);homeStats();renderTopics();renderEditor();
+    toast(ok?'Прогресс двух устройств объединён':'Прогресс объединён, но не всё удалось сохранить');
   };
-  $('#btnImportText').onclick = () => importJson($('#ioText').value);
-  $('#btnRestoreBase').onclick = () => {
-    if (!confirm('Отменить все изменения и удаления вопросов, вернуть исходные 961 вопрос?')) return;
-    S.ov = {}; S.add = [];
-    LS.set('ov', {}); LS.set('add', []);
-    buildDB(); homeStats(); renderTopics(); renderEditor();
-    toast('Исходные вопросы восстановлены');
-  };
+  $('#btnDownloadQuestionsMerge').onclick=()=>{if(COMPARISON.questions)downloadJson(COMPARISON.questions.data,'1c-profi-questions-merged-'+new Date().toISOString().slice(0,10)+'.json');};
+  $('#btnApplyQuestionsMerge').onclick=()=>{if(!COMPARISON.questions)return;importJson(JSON.stringify(COMPARISON.questions.data));};
 
-  const about = $('#mAbout');
-  $('#btnAbout').onclick = () => about.classList.add('open');
-  $('#mAboutClose').onclick = () => about.classList.remove('open');
-  about.onclick = e => { if (e.target === about) about.classList.remove('open'); };
-
-  $('#btnReset').onclick = () => {
-    if (!confirm('Сбросить прогресс, ошибки и избранное?')) return;
-    S.stats = {}; S.err = []; S.fav = [];
-    LS.set('stats', S.stats); LS.set('err', S.err); LS.set('fav', S.fav);
-    homeStats(); renderTopics(); toast('Прогресс сброшен');
-  };
-  window.addEventListener('keydown', e => {
-    if (!$('#view-quiz').classList.contains('hide')){
-      if (e.key === 'Enter') nextQ();
-      if (e.key >= '1' && e.key <= '9'){ const i = +e.key-1; if (i < Q.list[Q.i].o.length) $$('#qOpts .opt')[i].click(); }
+  window.addEventListener('keydown',e=>{
+    if(!$('#view-quiz').classList.contains('hide')){
+      if(e.key==='Enter'&&!e.target.closest('input,textarea,select'))nextQ();
+      if(e.key>='1'&&e.key<='9'&&!e.target.closest('input,textarea,select')){const i=+e.key-1;if(i<Q.list[Q.i].o.length)$$('#qOpts .opt')[i].click();}
+      return;
     }
+    if(e.key==='/'&&!e.target.closest('input,textarea,select,button')){e.preventDefault();$('#headerSearch').focus();}
   });
 }
+
 window.__appBack = function(){
-  if (!$('#view-form').classList.contains('hide')){ show('editor'); return true; }
+  if ($('#mIO').classList.contains('open')){ $('#mIO').classList.remove('open'); return true; }
+  if ($('#mAbout').classList.contains('open')){ $('#mAbout').classList.remove('open'); return true; }
+  if ($('#mMenu').classList.contains('open')){ $('#mMenu').classList.remove('open'); return true; }
+  if (!$('#view-form').classList.contains('hide')){ if (imageBusy) return true; show('editor'); return true; }
   if (!$('#view-tickets').classList.contains('hide')){ show('home'); homeStats(); renderTopics(); return true; }
   if (!$('#view-editor').classList.contains('hide')){ show('home'); homeStats(); renderTopics(); return true; }
   if (!$('#view-result').classList.contains('hide')){ show('home'); homeStats(); renderTopics(); return true; }
+  if (!$('#view-search').classList.contains('hide')){ show('home'); return true; }
   if (!$('#view-quiz').classList.contains('hide')){
     if (confirm('Прервать тренировку?')){ stopTimer(); show('home'); homeStats(); return true; }
     return true;
@@ -1024,7 +1793,7 @@ window.__appBack = function(){
 window.addEventListener('popstate', () => {
   if (!$('#view-quiz').classList.contains('hide')) stopTimer();
   views.forEach(x => $('#view-' + x).classList.toggle('hide', x !== 'home'));
-  homeStats(); renderTopics();
+  setActiveNav('home'); homeStats(); renderTopics();
 });
 document.addEventListener('DOMContentLoaded', init);
 </script>
